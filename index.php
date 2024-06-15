@@ -19,7 +19,7 @@ define('BASE_PATH', __DIR__);
 
 //$container = $app->getContainer(); #idk
 
-$app->get('/gamelist/', function (Request $request, Response $response, $args) {
+$app->get('/', function (Request $request, Response $response, $args) {
     $response->getBody()->write("Hello world!");
     return $response;
 });
