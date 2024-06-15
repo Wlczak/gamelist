@@ -19,12 +19,17 @@ define('BASE_PATH', __DIR__);
 //$container = $app->getContainer(); #idk
 
 $app->get('/', function (Request $request, Response $response, $args) {
-    $response->getBody()->write("Hello world!");
+    ob_start();
+    echo "<form action='api' method='post'>
+        <button type='submit'>plz work now -_-</button>
+    </form>";
+    $html = ob_get_clean();
+    $response->getBody()->write($html);
     return $response;
 });
 
-$app->get('/todo/view', [Todo::class, 'view']);
+$app->get('/todo', [Todo::class, 'view']);
 
-$app->post('/api',[TodoApi::class, 'todo']);
+$app->post('/api', [TodoApi::class, 'todo']);
 
 $app->run();

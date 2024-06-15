@@ -7,12 +7,12 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class Todo
 {
-    public function view(Request $request, Response $response): Response
+    public function view(Request $request, Response $response, $args): Response
     {
-        require 'vendor/autoload.php';
+        //require '../../vendor/autoload.php';
         ob_start();
-
-        include "templates/index.html";
+        echo "pain...";
+        //include "templates/index.html";
         $html = ob_get_clean();
         $response->getBody()->write($html);
         return $response;
