@@ -7,7 +7,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class Todo
 {
-    function view(Request $request, Response $response): Response
+    public function view(Request $request, Response $response): Response
     {
         require 'vendor/autoload.php';
         ob_start();
