@@ -11,7 +11,7 @@ class Todo
     {
         require 'vendor/autoload.php';
         ob_start();
-        
+
         include "templates/index.html";
         $html = ob_get_clean();
         $response->getBody()->write($html);
