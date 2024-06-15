@@ -5,7 +5,6 @@ use Gamelist\Controllers\Todo;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
-use Slim\Exception\HttpNotFoundException;
 
 require __DIR__ . '/vendor/autoload.php';
 
@@ -24,7 +23,7 @@ $app->get('/', function (Request $request, Response $response, $args) {
     return $response;
 });
 
-$app->get('/todo', [Todo::class, 'view']);
+$app->get('/todo/view', [Todo::class, 'view']);
 
 $app->post('/api',[TodoApi::class, 'todo']);
 
