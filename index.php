@@ -12,6 +12,8 @@ $app = AppFactory::create();
 
 $app->addErrorMiddleware(true, true, false);
 
+$app->setBasePath('/gamelist');
+
 define('BASE_PATH', __DIR__);
 
 //$container = $app->getContainer(); #idk
@@ -21,8 +23,8 @@ $app->get('/gamelist/', function (Request $request, Response $response, $args) {
     return $response;
 });
 
-$app->get('/gamelist/todo', [Todo::class, 'view']);
+$app->get('/todo', [Todo::class, 'view']);
 
-$app->post('/gamelist/api',[TodoApi::class, 'todo']);
+$app->post('/api',[TodoApi::class, 'todo']);
 
 $app->run();
