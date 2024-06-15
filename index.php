@@ -16,4 +16,9 @@ $app->get('/gamelist/', function (Request $request, Response $response, $args) {
     return $response;
 });
 
+$app->get('/gamelist/firstPage', function (Request $request, Response $response, $args) {
+    $response->getBody()->write("<h1>this is the first page</h1>");
+    return $response;
+});
+
 $app->run();
