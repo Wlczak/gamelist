@@ -1,0 +1,22 @@
+{
+    "name": "wlczak/gamelist",
+    "description": "A gamified todo list",
+    "type": "project",
+    "require": {
+        "latte/latte": "^3.0",
+        "slim/slim": "^4.14",
+        "slim/psr7": "^1.7"
+    },
+    "license": "none",
+    "autoload": {
+        "psr-4": {
+            "Wlczak\\Gamelist\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Adam Vlček",
+            "email": "adivlcak@seznam.cz"
+        }
+    ]
+}
