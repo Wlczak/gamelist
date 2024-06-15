@@ -23,7 +23,10 @@ $app->get('/', function (Request $request, Response $response, $args) {
     return $response;
 });
 
-$app->get('/todo/view', [Todo::class, 'view']);
+$app->get('/todo/view', function (Request $request, Response $response) {
+    $controller = new Todo(); // Create instance of Todo class
+    return $controller->view($request, $response);
+});
 
 $app->post('/api',[TodoApi::class, 'todo']);
 
