@@ -10,7 +10,7 @@
     "license": "none",
     "autoload": {
         "psr-4": {
-            "Wlczak\\Gamelist\\": "src/"
+            "Gamelist\\": "src/"
         }
     },
     "authors": [
