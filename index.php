@@ -2,6 +2,7 @@
 
 use Gamelist\Api\TodoApi;
 use Gamelist\Controllers\Todo;
+use Gamelist\Middleware\AuthMiddleware;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
@@ -18,17 +19,9 @@ define('BASE_PATH', __DIR__);
 
 //$container = $app->getContainer(); #idk
 
-$app->get('/', function (Request $request, Response $response, $args) {
-    ob_start();
-    echo "<form action='api' method='post'>
-        <button type='submit'>plz work now -_-</button>
-    </form>";
-    $html = ob_get_clean();
-    $response->getBody()->write($html);
-    return $response;
-});
+$app->add(AuthMiddleware::class);
 
-$app->get('/todo', [Todo::class, 'view']);
+$app->get('/', [Todo::class, 'view']);
 
 $app->post('/api', [TodoApi::class, 'todo']);
 
