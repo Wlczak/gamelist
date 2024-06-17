@@ -12,10 +12,10 @@ class AuthMiddleware
     {
         session_start();
         $response = $handler->handle($request);
-        $response->getBody()->write($this->loginCheck($response));
+        $response->getBody()->write($this->loginCheck());
         return $response;
     }
-    function loginCheck($response)
+    function loginCheck()
     {
         $_SESSION['isLoggedIn'] = true;
         ob_start();

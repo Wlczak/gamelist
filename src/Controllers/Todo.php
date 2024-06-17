@@ -9,7 +9,6 @@ class Todo
 {
     public function view(Request $request, Response $response): Response
     {
-        //require '../../vendor/autoload.php';
         ob_start();
         include "templates/index.html";
         $html = ob_get_clean();
@@ -18,7 +17,6 @@ class Todo
     }
     public function login(Request $request, Response $response): Response
     {
-        //require '../../vendor/autoload.php';
         ob_start();
         include "templates/login.html";
         $html = ob_get_clean();

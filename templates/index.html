@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="src/script/main.js"></script>
         <title>To-Do</title>
     </head>
     <body>
@@ -11,27 +12,5 @@
         <form action="api" method="post">
             <button type="submit">send</button>
         </form>
-
-        <script>
-            var array = {
-                key1: "value1",
-                key2: "value2",
-                key3: "value3",
-            };
-
-            // Convert the associative array to a JSON string
-            var data = JSON.stringify(array);
-            /*console.log(array);
-            console.log(data)*/
-            fetch(window.location.protocol + "//" + window.location.hostname + "/gamelist/api", {
-                method: "POST",
-                body: data,
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    // Handle the response from the PHP script if needed
-                    console.log(data);
-                });
-        </script>
     </body>
 </html>
