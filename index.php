@@ -25,6 +25,6 @@ $app->get('/', [Todo::class, 'view']);
 
 $app->get('/login', [Todo::class, 'login']);
 
-$app->post('/api', [TodoApi::class, 'todo']);
+$app->post('/api', [TodoApi::class, 'main']);
 
 $app->run();

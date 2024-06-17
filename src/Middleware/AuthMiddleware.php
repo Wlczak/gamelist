@@ -17,7 +17,7 @@ class AuthMiddleware
     }
     function loginCheck($response)
     {
-        //$_SESSION['isLoggedIn'] = false;
+        $_SESSION['isLoggedIn'] = true;
         ob_start();
         if (!isset($_SESSION['isLoggedIn'])) {
             $_SESSION['isLoggedIn'] = true;

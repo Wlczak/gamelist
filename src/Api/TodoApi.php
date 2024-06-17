@@ -7,11 +7,24 @@ use Psr\Http\Message\ResponseInterface;
 
 class TodoApi
 {
-    function todo(RequestInterface $request, ResponseInterface $response): ResponseInterface
+    public $recievedArray;
+    function main(RequestInterface $request, ResponseInterface $response): ResponseInterface
+    {
+        $this->recievedArray = $this->getRecievedArray(); // set array
+
+        $response->getBody()->write($this->sendArray($this->getRecievedArray())); // Set the response body
+        return $response;
+    }
+    function sendArray($array)
     {
         ob_start();
-        $html = ob_get_clean();
-        $response->getBody()->write($html); // Set the response body
-        return $response;
+        header('Content-Type: application/json');
+        echo json_encode($array);
+        return ob_get_clean();
+    }
+    function getRecievedArray(): array
+    {
+        $json = file_get_contents('php://input'); // get JSON
+        return json_decode($json, true); // decode and return JSON
     }
 }
