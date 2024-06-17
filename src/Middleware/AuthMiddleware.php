@@ -10,8 +10,23 @@ class AuthMiddleware
 {
     function __invoke(Request $request, RequestHandler $handler): Response
     {
-        echo "I AM MIDDLEWARE:)<br>";
+        session_start();
         $response = $handler->handle($request);
+        $response->getBody()->write($this->loginCheck($response));
         return $response;
+    }
+    function loginCheck($response)
+    {
+        //$_SESSION['isLoggedIn'] = false;
+        ob_start();
+        if (!isset($_SESSION['isLoggedIn'])) {
+            $_SESSION['isLoggedIn'] = true;
+        }
+        if (!$_SESSION['isLoggedIn'] && $_SERVER['REQUEST_URI'] != "/gamelist/login") {
+            ob_clean();
+            header("Location: /gamelist/login");
+            die("You need to login");
+        }
+        return ob_get_clean();
     }
 }

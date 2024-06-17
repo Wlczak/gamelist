@@ -23,6 +23,8 @@ $app->add(AuthMiddleware::class);
 
 $app->get('/', [Todo::class, 'view']);
 
+$app->get('/login', [Todo::class, 'login']);
+
 $app->post('/api', [TodoApi::class, 'todo']);
 
 $app->run();

@@ -17,4 +17,14 @@ class Todo
         $response->getBody()->write($html);
         return $response;
     }
+    public function login(Request $request, Response $response, $args): Response
+    {
+        //require '../../vendor/autoload.php';
+        ob_start();
+        echo "pain...";
+        //include "templates/index.html";
+        $html = ob_get_clean();
+        $response->getBody()->write($html);
+        return $response;
+    }
 }
