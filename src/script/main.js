@@ -3,17 +3,22 @@ var array = {
     key2: "value2",
     key3: "value3",
 };
+apiQuery(array).then((data) => {
+    console.log(data);
+});
 
 function apiQuery(array) {
     var data = JSON.stringify(array);
-    fetch(window.location.protocol + "//" + window.location.hostname + "/gamelist/api", {
+    return fetch(window.location.protocol + "//" + window.location.hostname + "/gamelist/api", { // Added return here
         method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: data,
     })
         .then((response) => response.json())
         .then((data) => {
             // Handle the response from the PHP script if needed
-            console.log(data);
             return data;
         })
         .catch((error) => {
@@ -22,6 +27,5 @@ function apiQuery(array) {
             throw error; // Re-throw the error to propagate it to the caller
         });
 }
-apiQuery(array).then((data) => {
-    console.log(data);
-});
+
+
