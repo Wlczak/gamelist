@@ -2,17 +2,33 @@
 
 namespace Gamelist\Api;
 
+use Gamelist\Classes\Database;
 use Psr\Http\Message\ServerRequestInterface as RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 class TodoApi
 {
     public $recievedArray;
+    public $outputArray = [];
     function main(RequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $this->recievedArray = $this->getRecievedArray(); // set array
+        if (isset($this->recievedArray["requestType"])) {
 
-        $response->getBody()->write($this->sendArray($this->getRecievedArray())); // Set the response body
+            switch ($this->recievedArray["requestType"]) {
+                case "test":
+                    $Database = new Database;
+                    $Database->query($this->recievedArray);
+                    break;
+                default:
+                    break;
+            }
+        } else {
+            $array = [
+                "error" => "requestType not defined"
+            ];
+        }
+        $response->getBody()->write($this->sendArray($array)); // Set the response body
         return $response;
     }
     function sendArray($array)
