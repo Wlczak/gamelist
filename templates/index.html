@@ -8,11 +8,21 @@
         <title>To-Do</title>
     </head>
     <body>
-        <h1>To-Do</h1>
-        <script></script>
-        <form action="api" method="post">
-            <button type="submit" class="btn btn-primary">send</button>
-        </form>
+        <div class="container">
+            <div class="row justify-content-center mt-5">
+                <div class="col-md-6 border">
+                    <div class="row border"><h1>To-Do</h1></div>
+                    <div class="row border justify-content-between">
+                        <div class="col"><h2>task</h2></div>
+                        <div class="btn-group col-md-5 mt-1 mb-1">
+                            <button type="button" class="btn btn-success">Done</button>
+                            <button type="button" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     </body>
 </html>
