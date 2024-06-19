@@ -1,7 +1,5 @@
 var array = {
-    key1: "value1",
-    key2: "value2",
-    key3: "value3",
+    requestType: "test"
 };
 apiQuery(array).then((data) => {
     console.log(data);

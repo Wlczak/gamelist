@@ -13,12 +13,14 @@ class TodoApi
     function main(RequestInterface $request, ResponseInterface $response): ResponseInterface
     {
         $this->recievedArray = $this->getRecievedArray(); // set array
+        //var_dump($this->recievedArray);
         if (isset($this->recievedArray["requestType"])) {
 
             switch ($this->recievedArray["requestType"]) {
                 case "test":
                     $Database = new Database;
                     $Database->query($this->recievedArray);
+                    $array = ["msg" => "good"];
                     break;
                 default:
                     break;

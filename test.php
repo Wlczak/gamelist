@@ -1,13 +1,7 @@
 <?php
-$servername = "db";
-$username = "user";
-$password = "userpassword";
-$dbname = "testdb";
+$hostname = "192.168.0.106:3306";
+$username = "gamelist";
+$password = "todolist";
+$database = "gamelist";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-echo "Connected successfully to the database!";
+$conn = new mysqli($hostname, $username, $password, $database);
