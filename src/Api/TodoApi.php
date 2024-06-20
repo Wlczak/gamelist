@@ -27,7 +27,7 @@ class TodoApi
             }
         } else {
             $array = [
-                "error" => "requestType not defined"
+                "error" => $this->recievedArray["requestType"]//"requestType not defined"
             ];
         }
         $response->getBody()->write($this->sendArray($array)); // Set the response body

@@ -20,9 +20,9 @@ function apiQuery(array) {
             // Handle the response from the PHP script if needed
             return data;
         })
-        /*.catch((error) => {
+        .catch((error) => {
             // Handle any errors that occurred during the fetch or processing
             console.error("Error in API call:", error);
             throw error; // Re-throw the error to propagate it to the caller
-        });*/
+        });
 }
