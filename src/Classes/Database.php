@@ -10,9 +10,11 @@ class Database
     public $username = "gamelist";
     public $password = "todolist";
     public $database = "gamelist";
-    function query($array)
+    function query($request): array
     {
         $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
         $conn->close();
+        $response["msg"] = "good";
+        return $response;
     }
 }

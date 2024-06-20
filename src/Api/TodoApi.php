@@ -31,8 +31,7 @@ class TodoApi
             switch ($request["requestType"]) {
                 case "dbQuery":
                     $Database = new Database;
-                    $Database->query($this->request);
-                    $response["msg"] = "good";
+                    $response = $Database->query($request);
                     break;
                 default:
                     $response["msg"] = "given requestType is undefined: \"" . $this->request['requestType'] . "\"";
