@@ -8,32 +8,40 @@ use Psr\Http\Message\ResponseInterface;
 
 class TodoApi
 {
-    public $recievedArray;
-    public $outputArray = [];
-    function main(RequestInterface $request, ResponseInterface $response): ResponseInterface
-    {
-        $this->recievedArray = $this->getRecievedArray(); // set array
-        //var_dump($this->recievedArray);
-        if (isset($this->recievedArray["requestType"])) {
+    # variable declaration
+    public $request;
+    //public $outputArray = [];
 
-            switch ($this->recievedArray["requestType"]) {
-                case "test":
+    function main(RequestInterface $request, ResponseInterface $html): ResponseInterface
+    {
+        $this->request = $this->getRecievedArray(); // set array
+
+        $response = $this->handleRequest($this->request);
+
+        $html->getBody()->write($this->returnResponse($response)); // Set the html body
+        return $html;
+    }
+    function handleRequest($request): array
+    {
+        if (!isset($request) || !key_exists("requestType", $request)) {
+            return $response = [
+                "error" => "[requestType] not defined"
+            ];
+        } else {
+            switch ($request["requestType"]) {
+                case "dbQuery":
                     $Database = new Database;
-                    $Database->query($this->recievedArray);
-                    $array = ["msg" => "good"];
+                    $Database->query($this->request);
+                    $response["msg"] = "good";
                     break;
                 default:
+                    $response["msg"] = "given requestType is undefined: \"" . $this->request['requestType'] . "\" ";
                     break;
             }
-        } else {
-            $array = [
-                "error" => $this->recievedArray["requestType"]//"requestType not defined"
-            ];
         }
-        $response->getBody()->write($this->sendArray($array)); // Set the response body
         return $response;
     }
-    function sendArray($array)
+    function returnResponse($array)
     {
         ob_start();
         header('Content-Type: application/json');

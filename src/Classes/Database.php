@@ -6,7 +6,7 @@ use mysqli;
 
 class Database
 {
-    public $hostname = "localhost:3306";
+    public $hostname = "192.168.0.106";
     public $username = "gamelist";
     public $password = "todolist";
     public $database = "gamelist";

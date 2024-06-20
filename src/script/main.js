@@ -1,5 +1,5 @@
 var array = {
-    requestType: "test"
+    requestType: "dbQuery"
 };
 apiQuery(array).then((data) => {
     console.log(data);
