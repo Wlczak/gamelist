@@ -10,11 +10,12 @@ class TodoApi
 {
     # variable declaration
     public $request;
-    //public $outputArray = [];
+    public $Database;
 
     function main(RequestInterface $request, ResponseInterface $html): ResponseInterface
     {
         $this->request = $this->getRecievedArray(); // set array
+        $this->Database = new Database;
 
         $response = $this->handleRequest($this->request);
 
@@ -30,8 +31,12 @@ class TodoApi
         } else {
             switch ($request["requestType"]) {
                 case "dbQuery":
+
+                    $response = $this->Database->query($request);
+                    break;
+                case "getList":
                     $Database = new Database;
-                    $response = $Database->query($request);
+                    $response = $this->Database->getList($request);
                     break;
                 default:
                     $response["msg"] = "given requestType is undefined: \"" . $this->request['requestType'] . "\"";
