@@ -36,10 +36,10 @@ class Database
         #function content
         $listId = $request["listId"];
         $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
-        $result = $conn->query("SELECT content,pointScore,status FROM `tasks` WHERE listId = $listId");
-        $response = $result->fetch_all();
-
-        //$response = ["status" => 1];
+        $result = $conn->query("SELECT content,pointScore,status FROM `tasks` WHERE listId = $listId AND status = 1");
+        while ($row = $result->fetch_assoc()) {
+            $response[] = $row;
+        }
         return $response;
     }
     function checkKeys($request, $keys)
