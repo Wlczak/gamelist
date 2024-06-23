@@ -28,7 +28,7 @@ class Database
     }
     function getList($request): array
     {
-        $keys = ["listId", "accessToken", "listName", "tasks"];
+        $keys = ["listId", "accessToken"];
         $request = $this->checkKeys($request, $keys);
         if (!$request["status"])
             return $request;
@@ -36,10 +36,10 @@ class Database
         #function content
         $listId = $request["listId"];
         $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
-        $result = $conn->query("SELECT * FROM `tasks` WHERE listId = $listId");
+        $result = $conn->query("SELECT content,pointScore,status FROM `tasks` WHERE listId = $listId");
+        $response = $result->fetch_all();
 
-
-        $response = ["status" => 1];
+        //$response = ["status" => 1];
         return $response;
     }
     function checkKeys($request, $keys)

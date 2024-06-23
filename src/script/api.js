@@ -20,4 +20,13 @@ export class Api {
                 throw error; // Re-throw the error to propagate it to the caller
             });
     }
+    getList(listId, accessToken) {
+        //$keys = ["listId", "accessToken", "listName", "tasks"];
+        var array = {
+            requestType: "getList",
+            listId: listId,
+            accessToken: accessToken
+        };
+        return this.apiQuery(array)
+    }
 }
