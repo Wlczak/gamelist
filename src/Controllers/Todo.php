@@ -23,4 +23,12 @@ class Todo
         $response->getBody()->write($html);
         return $response;
     }
+    public function register(Request $request, Response $response): Response
+    {
+        ob_start();
+        include "templates/register.html";
+        $html = ob_get_clean();
+        $response->getBody()->write($html);
+        return $response;
+    }
 }
