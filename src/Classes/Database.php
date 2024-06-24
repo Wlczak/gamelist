@@ -13,7 +13,7 @@ class Database
     public $database = "gamelist";
 
     # universal SQL query
-    function query($request): array
+    function apiQuery($request): array
     {
         $keys = ["query"];
         $request = $this->checkKeys($request, $keys);
@@ -26,6 +26,7 @@ class Database
         $response["msg"] = "good";
         return $response;
     }
+
     function getList($request): array
     {
         $keys = ["listId", "accessToken"];
@@ -35,13 +36,32 @@ class Database
 
         #function content
         $listId = $request["listId"];
-        $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
-        $result = $conn->query("SELECT content,pointScore,status FROM `tasks` WHERE listId = $listId AND status = 1");
+        $result = $this->query("SELECT id,content,pointScore,status FROM `tasks` WHERE listId = $listId AND status = 0");
         while ($row = $result->fetch_assoc()) {
             $response[] = $row;
         }
         return $response;
     }
+
+    function removeTask($request): array
+    {
+        $keys = ["taskId", "accessToken"];
+        $request = $this->checkKeys($request, $keys);
+        if (!$request["status"])
+            return $request;
+            
+            $taskId = $request['taskId'];
+        $this->query("DELETE FROM `tasks` WHERE id = $taskId");
+        $response["status"] = true;
+        return $response;
+    }
+
+    function query($sql)
+    {
+        $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+        return $conn->query($sql);
+    }
+
     function checkKeys($request, $keys)
     {
         foreach ($keys as $key) {

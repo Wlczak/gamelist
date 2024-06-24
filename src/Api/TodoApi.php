@@ -32,17 +32,27 @@ class TodoApi
             switch ($request["requestType"]) {
                 case "dbQuery":
 
-                    $response = $this->Database->query($request);
+                    $response = $this->Database->apiQuery($request);
                     break;
                 case "getList":
-                    $Database = new Database;
                     $response = $this->Database->getList($request);
+                    break;
+                case "removeTask":
+                    $response = $this->Database->removeTask($request);
+
                     break;
                 default:
                     $response["msg"] = "given requestType is undefined: \"" . $this->request['requestType'] . "\"";
-                    $response["help"] = "Get help with the api at: https://github.com/Wlczak/gamelist/wiki/Api";
+                    $response["help"] = "Get help with the api at: https://github.com/Wlczak/gamelist/wiki/Api-backend";
                     break;
             }
+        }
+        /*if(){
+
+        }*/
+        //echo gettype($response);
+        if (!gettype($response) == "array" || !isset($response)) {
+            $response=  ["error" => "Api method error: method returned ivalid values"];
         }
         return $response;
     }

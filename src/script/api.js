@@ -21,12 +21,19 @@ export class Api {
             });
     }
     getList(listId, accessToken) {
-        //$keys = ["listId", "accessToken", "listName", "tasks"];
-        var array = {
+        var request = {
             requestType: "getList",
             listId: listId,
-            accessToken: accessToken
+            accessToken: accessToken,
         };
-        return this.apiQuery(array)
+        return this.apiQuery(request);
+    }
+    removeTask(taskId, accessToken) {
+        var request = {
+            requestType: "removeTask",
+            taskId: taskId,
+            accessToken: accessToken,
+        };
+        return this.apiQuery(request);
     }
 }
