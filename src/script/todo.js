@@ -7,6 +7,6 @@ var render = new Render(api);
 
 api.getList(1, true).then((response) => {
     response.forEach((taskData) => {
-        render.addTask(taskData["id"],taskData["content"], taskData["pointScore"]);
+        render.addTask(taskData["id"], taskData["content"], taskData["pointScore"]);
     });
 });

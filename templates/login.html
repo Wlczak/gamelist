@@ -3,11 +3,35 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script src="src/script/main.js"></script>
+        <script type="module" src="src/script/login.js"></script>
         <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
         <title>Login</title>
     </head>
-    <body>
+    <body data-bs-theme="light">
+        <div class="container">
+            <div class="row d-flex justify-content-center align-items-center" style="height: 100vh">
+                <div class="col-xsm-10 col-lg-6 col-xl-5 border shadow-lg rounded p-5">
+                    <div class="row pb-3"><h1>Login</h1></div>
+                    <form
+                        class="row border-top p-2 pt-3 pb-0 d-flex justify-content-end"
+                        action="auth"
+                        method="post"
+                    >
+                        <input class="form-control" type="text" name="username" placeholder="Username" />
+
+                        <input
+                            class="mt-2 form-control"
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                        />
+
+                        <button class="col-6 mt-2 btn btn-primary" type="submit">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     </body>
 </html>
