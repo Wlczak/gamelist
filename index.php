@@ -1,10 +1,9 @@
 <?php
 
 use Gamelist\Api\TodoApi;
+use Gamelist\Api\TodoAuth;
 use Gamelist\Controllers\Todo;
 use Gamelist\Middleware\AuthMiddleware;
-use Psr\Http\Message\ResponseInterface as Response;
-use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Factory\AppFactory;
 
 require __DIR__ . '/vendor/autoload.php';
@@ -17,13 +16,15 @@ $app->setBasePath('/gamelist');
 
 define('BASE_PATH', __DIR__);
 
-//$container = $app->getContainer(); #idk
-
 $app->add(AuthMiddleware::class);
 
 $app->get('/', [Todo::class, 'view']);
 
 $app->get('/login', [Todo::class, 'login']);
+
+$app->post('/auth', [TodoAuth::class, 'main']);
+
+// $app->get('/test', [TodoAuth::class, 'test']);
 
 $app->post('/api', [TodoApi::class, 'main']);
 
