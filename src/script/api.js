@@ -36,4 +36,10 @@ export class Api {
         };
         return this.apiQuery(request);
     }
+    getAuthError() {
+        var request = {
+            requestType: "getAuthError",
+        };
+        return this.apiQuery(request);
+    }
 }

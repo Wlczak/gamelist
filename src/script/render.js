@@ -60,4 +60,40 @@ export class Render {
             task.remove();
         };
     }
+    showToast(content, color) {
+        //create tags
+        var toastContainer = document.getElementById("toast-container")
+        var toast = document.createElement("div");
+        var flex = document.createElement("div");
+        var toastContent = document.createElement("div");
+        var closeBtn = document.createElement("button");
+        //setting properies
+        //toastContainer.className = "toast-container position-fixed bottom-0 end-0 p-3";
+
+        toast.className = "toast align-items-center text-bg-primary border-0";
+        toast.id = "toast";
+        toast.role = "alert";
+        toast.setAttribute("aria-live", "assertive");
+        toast.setAttribute("aria-atomic", "true");
+
+        flex.className = "d-flex";
+
+        toastContent.className = "toast-body";
+        toastContent.innerHTML = content;
+        flex.appendChild(toastContent);
+
+        closeBtn.type = "button";
+        closeBtn.className = "btn-close btn-close-white me-2 m-auto";
+        closeBtn.setAttribute("data-bs-dismiss", "toast");
+        closeBtn.setAttribute("aria-label", "Close");
+        flex.appendChild(closeBtn);
+
+        //append
+        toast.appendChild(flex);
+        toastContainer.appendChild(toast);
+
+        const toastElement = document.getElementById("toast");
+        const toastInstance = new bootstrap.Toast(toastElement);
+        toastInstance.show();
+    }
 }

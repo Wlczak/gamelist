@@ -3,6 +3,7 @@
 namespace Gamelist\Api;
 
 use Gamelist\Classes\Database;
+use Gamelist\Classes\Session;
 use Psr\Http\Message\ServerRequestInterface as RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -11,11 +12,13 @@ class TodoApi
     # variable declaration
     public $request;
     public $Database;
+    public $Session;
 
     function main(RequestInterface $request, ResponseInterface $html): ResponseInterface
     {
         $this->request = $this->getRecievedArray(); // set array
         $this->Database = new Database;
+        $this->Session = new Session;
 
         $response = $this->handleRequest($this->request);
 
@@ -39,7 +42,9 @@ class TodoApi
                     break;
                 case "removeTask":
                     $response = $this->Database->removeTask($request);
-
+                    break;
+                case 'getAuthError':
+                    $response = $this->Session->getAuthError();
                     break;
                 default:
                     $response["msg"] = "given requestType is undefined: \"" . $this->request['requestType'] . "\"";
