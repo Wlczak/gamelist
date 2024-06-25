@@ -49,8 +49,8 @@ class Database
         $request = $this->checkKeys($request, $keys);
         if (!$request["status"])
             return $request;
-            
-            $taskId = $request['taskId'];
+
+        $taskId = $request['taskId'];
         $this->query("DELETE FROM `tasks` WHERE id = $taskId");
         $response["status"] = true;
         return $response;
@@ -72,5 +72,17 @@ class Database
         }
         $request["status"] = true;
         return $request;
+    }
+    function checkIfExists($table, $column, $needle)
+    {
+        $result = $this->query("SELECT COUNT(*) FROM $table WHERE $column = '$needle'");
+        if ($result->fetch_column() > 0) {
+            return true;
+        };
+        return false;
+    }
+    function createUser($username, $password)
+    {
+        $this->query("INSERT INTO `users` (`id`, `username`, `password`) VALUES (NULL, '$username', '$password');");
     }
 }

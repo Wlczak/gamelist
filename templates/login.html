@@ -16,6 +16,7 @@
                         class="row border-top p-2 pt-3 pb-0 d-flex justify-content-end"
                         action="auth"
                         method="post"
+                        required
                     >
                         <input class="form-control" type="text" name="username" placeholder="Username" />
 
@@ -24,9 +25,10 @@
                             type="password"
                             name="password"
                             placeholder="Password"
+                            required
                         />
 
-                        <button class="col-6 mt-2 btn btn-primary" type="submit" name="type" value="register">
+                        <button class="col-6 mt-2 btn btn-primary" type="submit" name="type" value="login">
                             Login
                         </button>
                     </form>
