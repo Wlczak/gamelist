@@ -61,7 +61,7 @@ class TodoAuth
         $this->Database->createUser($username, $password);
 
         $_SESSION['authError'] = false;
-        $_SESSION['authMsg'] = "This username is already in use.";
+        $_SESSION['authMsg'] = "Registered succesfully.";
         return $html->withHeader('Location', 'register')->withStatus(302);
     }
     function test(RequestInterface $request, ResponseInterface $html): ResponseInterface
