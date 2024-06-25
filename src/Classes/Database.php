@@ -84,5 +84,5 @@ class Database
     function createUser($username, $password)
     {
         $this->query("INSERT INTO `users` (`id`, `username`, `password`) VALUES (NULL, '$username', '$password');");
-    }
+    }                       
 }

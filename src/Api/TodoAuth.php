@@ -38,6 +38,26 @@ class TodoAuth
     }
     function login($html)
     {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+        $password_hash = $this->Database->query("SELECT password FROM users WHERE username = '$username'")->fetch_column();;
+
+
+        if (!$this->Database->checkIfExists("users", "username", $username)) {
+            $_SESSION['authError'] = true;
+            $_SESSION['authMsg'] = "This user doesn't exist.";
+            return $html->withHeader('Location', 'login')->withStatus(302);
+        }
+        if (!password_verify($password, $password_hash)) {
+            $_SESSION['authError'] = true;
+            $_SESSION['authMsg'] = "Wrong password.";
+            return $html->withHeader('Location', 'login')->withStatus(302);
+        } else {
+            $_SESSION['authError'] = false;
+            $_SESSION['authMsg'] = "Login succesfull.";
+            return $html->withHeader('Location', 'login')->withStatus(302);
+        }
+
         return $html;
     }
     function register($html)
@@ -62,7 +82,7 @@ class TodoAuth
 
         $_SESSION['authError'] = false;
         $_SESSION['authMsg'] = "Registered succesfully.";
-        return $html->withHeader('Location', 'register')->withStatus(302);
+        return $html->withHeader('Location', 'login')->withStatus(302);
     }
     function test(RequestInterface $request, ResponseInterface $html): ResponseInterface
     {
