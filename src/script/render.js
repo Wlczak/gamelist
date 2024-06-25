@@ -62,15 +62,30 @@ export class Render {
     }
     showToast(content, color) {
         //create tags
-        var toastContainer = document.getElementById("toast-container")
+        var toastContainer = document.getElementById("toast-container");
         var toast = document.createElement("div");
         var flex = document.createElement("div");
         var toastContent = document.createElement("div");
         var closeBtn = document.createElement("button");
         //setting properies
         //toastContainer.className = "toast-container position-fixed bottom-0 end-0 p-3";
+        var colorClassName;
+        switch (color) {
+            case "blue":
+                colorClassName = "text-bg-primary";
+                break;
+                case "red":
+                    colorClassName = "text-bg-danger";
+                    break;
+                    case "green":
+                        colorClassName = "text-bg-success";
+                        break;
+            
+            default:
+                break;
+        }
 
-        toast.className = "toast align-items-center text-bg-primary border-0";
+        toast.className = "toast align-items-center border-0 " + colorClassName;
         toast.id = "toast";
         toast.role = "alert";
         toast.setAttribute("aria-live", "assertive");

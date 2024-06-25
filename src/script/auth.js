@@ -8,6 +8,11 @@ var render = new Render(api);
 api.getAuthError().then((response) => {
     console.log(response);
     if (response.authMsg) {
-        render.showToast(response.authMsg, "blue");
+        if(response.authError){
+            render.showToast(response.authMsg, "red");
+        }else{
+            render.showToast(response.authMsg, "green");
+        }
+        
     }
 });
