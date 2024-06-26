@@ -2,6 +2,7 @@
 
 namespace Gamelist\Middleware;
 
+use Gamelist\Classes\Token;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
@@ -13,6 +14,8 @@ class AuthMiddleware
         session_start();
         $response = $handler->handle($request);
         $response->getBody()->write($this->loginCheck());
+        $Token = new Token;
+        $Token->checkTokens();
         return $response;
     }
     function loginCheck()

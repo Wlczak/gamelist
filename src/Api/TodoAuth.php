@@ -3,6 +3,7 @@
 namespace Gamelist\Api;
 
 use Gamelist\Classes\Database;
+use Gamelist\Classes\Token;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -40,8 +41,9 @@ class TodoAuth
     {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $password_hash = $this->Database->query("SELECT password FROM users WHERE username = '$username'")->fetch_column();;
-
+        $result = $this->Database->query("SELECT password , id FROM users WHERE username = '$username'")->fetch_assoc();;
+        $password_hash = $result["password"];
+        $uid = $result["id"];
 
         if (!$this->Database->checkIfExists("users", "username", $username)) {
             $_SESSION['authError'] = true;
@@ -55,6 +57,10 @@ class TodoAuth
         } else {
             $_SESSION['authError'] = false;
             $_SESSION['authMsg'] = "Login succesfull.";
+            $Token = new Token;
+            $_SESSION['token'] = $Token->generateSessionToken();
+            $Token->setSessionToken($uid, "dca9d6119c9292e8d184ececf174c4c7264d371c24b08ca9176252f409dadf3b");
+            $_SESSION['isLoggedIn'] = true;
             return $html->withHeader('Location', 'login')->withStatus(302);
         }
 
