@@ -31,7 +31,7 @@ class TodoAuth
 
             default:
                 $_SESSION['authError'] = true;
-                $_SESSION['authMsg'] = "Auth request type not recognised.";
+                //$_SESSION['authMsg'] = "Auth request type not recognised.";
                 $html = $html->withHeader('Location', '/login')->withStatus(302);
                 break;
         }
@@ -47,16 +47,16 @@ class TodoAuth
 
         if (!$this->Database->checkIfExists("users", "username", $username)) {
             $_SESSION['authError'] = true;
-            $_SESSION['authMsg'] = "This user doesn't exist.";
+            //$_SESSION['authMsg'] = "This user doesn't exist.";
             return $html->withHeader('Location', 'login')->withStatus(302);
         }
         if (!password_verify($password, $password_hash)) {
             $_SESSION['authError'] = true;
-            $_SESSION['authMsg'] = "Wrong password.";
+            //$_SESSION['authMsg'] = "Wrong password.";
             return $html->withHeader('Location', 'login')->withStatus(302);
         } else {
             $_SESSION['authError'] = false;
-            $_SESSION['authMsg'] = "Login succesfull.";
+            //$_SESSION['authMsg'] = "Login succesfull.";
             $Token = new Token;
             $_SESSION['token'] = $Token->generateSessionToken();
             $Token->setSessionToken($uid, "dca9d6119c9292e8d184ececf174c4c7264d371c24b08ca9176252f409dadf3b");
