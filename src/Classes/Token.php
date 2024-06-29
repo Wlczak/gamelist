@@ -17,32 +17,6 @@ class Token
     public function setSessionToken($uid, $token)
     {
 
-        $_SESSION['authMsg'] = "";
-        /*  $Database = new Database;
-        $expire = $this->getTimestampAfter(20);
-        if (!$Database->checkIfExists('tokens', "token", $token)) {
-
-            $_SESSION['authMsg'] = $_SESSION['authMsg'] . "nono";
-            //token doesn't exist
-            $Database->query("INSERT INTO `tokens` (`id`, `uid`, `token`, `expires`) VALUES (NULL, '$uid', '$token', '$expire');");
-        } else {
-
-            //token exists
-            /*$result = $Database->query("SELECT id,uid FROM tokens WHERE token = '$token'")->fetch_assoc();
-            $tokenUid = $result['uid'];
-            $tokenId = $result['id'];
-            $_SESSION['authMsg'] = $_SESSION['authMsg'] . "y";
-            if ($uid == $tokenUid) {
-                //token belongs to the current user -> update time
-                $expire = $this->getTimestampAfter(20);
-                $Database->query("UPDATE `tokens` SET `expires` = '$expire' WHERE `id` = $tokenId");
-                $_SESSION['authMsg'] = $_SESSION['authMsg'] . "y1";
-            } else {
-                //doesn't belong to current user -> create new token
-                $this->setSessionToken($uid, $this->generateSessionToken());
-                $_SESSION['authMsg'] = $_SESSION['authMsg'] . "y2";
-            }
-        }*/
     }
     public function checkTokens()
     {
