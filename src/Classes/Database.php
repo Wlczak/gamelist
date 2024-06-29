@@ -21,7 +21,11 @@ class Database
             return $request;
 
         #function content
-        $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+        try {
+            $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+        } catch (mysqli_sql_exception $e) {
+            $this->throwDatabaseError($e);
+        }
         $conn->close();
         $response["msg"] = "good";
         return $response;
@@ -84,5 +88,12 @@ class Database
     function createUser($username, $password)
     {
         $this->query("INSERT INTO `users` (`id`, `username`, `password`) VALUES (NULL, '$username', '$password');");
-    }                       
+    }
+    function throwDatabaseError($e)
+    {
+        /*echo "<script> 
+        window.alert('We are currently experiencing database issues please try again later.')
+        </script>";*/
+        //var_dump($e);
+        $eArr = (array)$e;
 }
