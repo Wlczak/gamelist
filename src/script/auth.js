@@ -8,11 +8,13 @@ var render = new Render(api);
 api.getAuthError().then((response) => {
     console.log(response);
     if (response.authMsg) {
-        if(response.authError){
+        if (response.authError) {
             render.showToast(response.authMsg, "red");
-        }else{
+        } else {
             render.showToast(response.authMsg, "green");
         }
-        
+    }
+    if ((response.authToken !=undefined && response.authToken != null)) {
+        document.cookie = "authToken=" + response.authToken;
     }
 });

@@ -16,21 +16,24 @@ class Token
     }
     public function setSessionToken($uid, $token)
     {
+        $token = $this->generateSessionToken();
+        $_SESSION['tokenSecret'] = $token;
+        $_SESSION['authToken'] = $token;
+        $this->checkTokens();
         $Database = new Database;
-        $expires = $this->getTimestampAfter(20);
+        $expires = $this->getTimestampAfter(1);
         if ($Database->checkIfExists("tokens", "token", $token)) {
             //exists
             $result = $Database->query("SELECT id, uid FROM tokens WHERE token = '$token'");
             $row = $result->fetch_assoc();
             $_SESSION['authMsg'] = $row['uid'];
-            if($uid == $row['uid']){
+            if ($uid == $row['uid']) {
                 $_SESSION['authMsg'] = "same";
                 $id = $row['id'];
                 $Database->query("UPDATE `tokens` SET `expires` = '$expires' WHERE id = $id");
-            }
-            else{
+            } else {
                 $_SESSION['authMsg'] = "not same";
-                $this->setSessionToken($uid,$this->generateSessionToken());
+                $this->setSessionToken($uid, $this->generateSessionToken());
             }
         } else {
             //doesnt exist
