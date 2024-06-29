@@ -3,6 +3,7 @@
 namespace Gamelist\Classes;
 
 use mysqli;
+use mysqli_sql_exception;
 
 class Database
 {
@@ -100,4 +101,7 @@ class Database
         </script>";*/
         //var_dump($e);
         $eArr = (array)$e;
+        include "templates/dbError.php";
+        die;
+    }
 }
