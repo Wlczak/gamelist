@@ -16,14 +16,34 @@ class Token
     }
     public function setSessionToken($uid, $token)
     {
-
+        $Database = new Database;
+        $expires = $this->getTimestampAfter(20);
+        if ($Database->checkIfExists("tokens", "token", $token)) {
+            //exists
+            $result = $Database->query("SELECT id, uid FROM tokens WHERE token = '$token'");
+            $row = $result->fetch_assoc();
+            $_SESSION['authMsg'] = $row['uid'];
+            if($uid == $row['uid']){
+                $_SESSION['authMsg'] = "same";
+                $id = $row['id'];
+                $Database->query("UPDATE `tokens` SET `expires` = '$expires' WHERE id = $id");
+            }
+            else{
+                $_SESSION['authMsg'] = "not same";
+                $this->setSessionToken($uid,$this->generateSessionToken());
+            }
+        } else {
+            //doesnt exist
+            $Database->query("INSERT INTO `tokens` (`id`, `uid`, `token`, `expires`) VALUES (NULL, $uid, '$token', '$expires');");
+            $_SESSION['authMsg'] = "new token created";
+        }
     }
     public function checkTokens()
     {
         $Database = new Database;
-        $result = $Database->query("SELECT token, expires AS fukcyxo FROM tokens");
+        $result = $Database->query("SELECT token, expires FROM tokens");
         while ($row = $result->fetch_assoc()) {
-            $date = date_format(new DateTime($row['fukcyxo']), "U");
+            $date = date_format(new DateTime($row['expires']), "U");
             if ($date < time()) {
                 $token = $row['token'];
                 $Database->query("DELETE FROM tokens WHERE token = '$token';");
