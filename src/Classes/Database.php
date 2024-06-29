@@ -62,7 +62,11 @@ class Database
 
     function query($sql)
     {
-        $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+        try {
+            $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+        } catch (mysqli_sql_exception $e) {
+            $this->throwDatabaseError($e);
+        }
         return $conn->query($sql);
     }
 
