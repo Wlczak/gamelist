@@ -41,6 +41,18 @@ class Token
             $_SESSION['authMsg'] = "new token created";
         }
     }
+    function extendTokenTime($uid, $token)
+    {
+
+        $expires = $this->getTimestampAfter(20);
+        $Database = new Database;
+        $result = $Database->query("SELECT id, uid FROM tokens WHERE token = '$token'");
+        $row = $result->fetch_assoc();
+        $id = $row['id'];
+        if ($row['uid'] == $uid) {
+            $Database->query("UPDATE `tokens` SET `expires` = '$expires' WHERE id = $id");
+        }
+    }
     public function checkTokens()
     {
         $Database = new Database;

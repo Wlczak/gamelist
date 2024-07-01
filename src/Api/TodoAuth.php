@@ -44,6 +44,7 @@ class TodoAuth
         $result = $this->Database->query("SELECT password , id FROM users WHERE username = '$username'")->fetch_assoc();;
         $password_hash = $result["password"];
         $uid = $result["id"];
+        $_SESSION['uidSecret'] = $uid;
 
         if (!$this->Database->checkIfExists("users", "username", $username)) {
             $_SESSION['authError'] = true;

@@ -15,7 +15,7 @@ class AuthMiddleware
         session_start();
 
         $Token = new Token;
-        
+
         $response = $handler->handle($request);
         $Token->checkTokens();
         $response = $this->loginCheck($response);
@@ -36,6 +36,8 @@ class AuthMiddleware
                 $Database = new Database;
                 $token = $_SESSION['tokenSecret'];
                 if ($Database->checkIfExists("tokens", "token", $token)) {
+                    $Token = new Token;
+                    $Token->extendTokenTime($_SESSION['uidSecret'], $_SESSION['tokenSecret']);
                     return $response;
                 }
             }
