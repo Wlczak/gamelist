@@ -56,12 +56,11 @@ class TodoAuth
             return $html->withHeader('Location', 'login')->withStatus(302);
         } else {
             $_SESSION['authError'] = false;
-            //$_SESSION['authMsg'] = "Login succesfull.";
+            $_SESSION['authMsg'] = "Login succesfull.";
             $Token = new Token;
-            $_SESSION['token'] = $Token->generateSessionToken();
             $Token->setSessionToken($uid, "dca9d6119c9292e8d184ececf174c4c7264d371c24b08ca9176252f409dadf3b");
             $_SESSION['isLoggedIn'] = true;
-            return $html->withHeader('Location', 'login')->withStatus(302);
+            return $html->withHeader('Location', '/gamelist')->withStatus(302);
         }
 
         return $html;

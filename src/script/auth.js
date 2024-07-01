@@ -14,7 +14,12 @@ api.getAuthError().then((response) => {
             render.showToast(response.authMsg, "green");
         }
     }
-    if ((response.authToken !=undefined && response.authToken != null)) {
+    if (response.authToken != undefined && response.authToken != null) {
         document.cookie = "authToken=" + response.authToken;
+        setTimeout(() => {
+            console.log("hi");
+            window.location.replace("/gamelist");
+            
+        }, 750);
     }
 });

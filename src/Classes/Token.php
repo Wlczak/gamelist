@@ -8,7 +8,7 @@ class Token
 {
     public function generateSessionToken()
     {
-        return hash("snefru256", $this->generateRandomString(pow("2", random_int(16, 17/*28*/))));
+        return hash("snefru256", $this->generateRandomString(pow("2", random_int(16, 28))));
     }
     private function generateRandomString($length)
     {
@@ -21,7 +21,7 @@ class Token
         $_SESSION['authToken'] = $token;
         $this->checkTokens();
         $Database = new Database;
-        $expires = $this->getTimestampAfter(1);
+        $expires = $this->getTimestampAfter(20);
         if ($Database->checkIfExists("tokens", "token", $token)) {
             //exists
             $result = $Database->query("SELECT id, uid FROM tokens WHERE token = '$token'");
