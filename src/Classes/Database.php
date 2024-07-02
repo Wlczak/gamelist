@@ -34,13 +34,15 @@ class Database
 
     function getList($request): array
     {
-        $keys = ["listId", "accessToken"];
+        $keys = ["listId"];
         $request = $this->checkKeys($request, $keys);
         if (!$request["status"])
             return $request;
 
         #function content
         $listId = $request["listId"];
+
+        $listId = $_SESSION['uidSecret']; //overwrite
         $result = $this->query("SELECT id,content,pointScore,status FROM `tasks` WHERE listId = $listId AND status = 0");
         while ($row = $result->fetch_assoc()) {
             $response[] = $row;
@@ -50,7 +52,7 @@ class Database
 
     function removeTask($request): array
     {
-        $keys = ["taskId", "accessToken"];
+        $keys = ["taskId"];
         $request = $this->checkKeys($request, $keys);
         if (!$request["status"])
             return $request;

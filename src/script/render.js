@@ -33,7 +33,7 @@ export class Render {
         deleteButton.type = "button";
         deleteButton.className = "btn btn-danger";
         deleteButton.addEventListener("click", (e) => {
-            this.api.removeTask(id, true).then((result) => {
+            this.api.removeTask(id).then((result) => {
                 console.log(result);
                 if (result.status) {
                     this.removeTask(id);

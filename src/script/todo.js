@@ -5,7 +5,7 @@ import { Render } from "./render.js";
 var api = new Api();
 var render = new Render(api);
 
-api.getList(1, true).then((response) => {
+api.getList(1).then((response) => {
     if (typeof response[0] == "object") {
         response.forEach((taskData) => {
             render.addTask(taskData["id"], taskData["content"], taskData["pointScore"]);

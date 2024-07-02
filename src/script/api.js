@@ -20,19 +20,17 @@ export class Api {
                 throw error; // Re-throw the error to propagate it to the caller
             });
     }
-    getList(listId, accessToken) {
+    getList(listId) {
         var request = {
             requestType: "getList",
             listId: listId,
-            accessToken: accessToken,
         };
         return this.apiQuery(request);
     }
-    removeTask(taskId, accessToken) {
+    removeTask(taskId) {
         var request = {
             requestType: "removeTask",
             taskId: taskId,
-            accessToken: accessToken,
         };
         return this.apiQuery(request);
     }
