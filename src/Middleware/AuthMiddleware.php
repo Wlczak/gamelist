@@ -10,14 +10,17 @@ use Psr\Http\Server\RequestHandlerInterface as RequestHandler;
 
 class AuthMiddleware
 {
+    private $Database;
+    private $Token;
     function __invoke(Request $request, RequestHandler $handler): Response
     {
         session_start();
 
-        $Token = new Token;
+        $this->Token = new Token;
+        $this->Database = new Database;
 
         $response = $handler->handle($request);
-        $Token->checkTokens();
+        $this->Token->checkTokens();
         $response = $this->loginCheck($response);
         return $response;
     }
@@ -31,17 +34,11 @@ class AuthMiddleware
         if ($_SERVER['REQUEST_URI'] == "/gamelist/login" || $_SERVER['REQUEST_URI'] == "/gamelist/register" || $_SERVER['REQUEST_URI'] == "/gamelist/api" || $_SERVER['REQUEST_URI'] == "/gamelist/auth") {
             return $response;
         } else {
-            if ($_SESSION['isLoggedIn'] && isset($_COOKIE['authToken']) && $_COOKIE['authToken'] == $_SESSION['tokenSecret']) {
-                //$_SESSION['authMsg'] = 1; #debug
-                $Database = new Database;
-                $token = $_SESSION['tokenSecret'];
-                if ($Database->checkIfExists("tokens", "token", $token)) {
-                    $Token = new Token;
-                    $Token->extendTokenTime($_SESSION['uidSecret'], $_SESSION['tokenSecret']);
-                    return $response;
-                }
+            if($this->Database->verifyToken()){
+                return $response;
             }
         }
+        
         return $response->withHeader('Location', 'login')->withStatus(302);
     }
 }

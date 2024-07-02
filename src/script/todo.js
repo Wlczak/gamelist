@@ -6,7 +6,12 @@ var api = new Api();
 var render = new Render(api);
 
 api.getList(1, true).then((response) => {
-    response.forEach((taskData) => {
-        render.addTask(taskData["id"], taskData["content"], taskData["pointScore"]);
-    });
+    if (typeof response[0] == "object") {
+        response.forEach((taskData) => {
+            render.addTask(taskData["id"], taskData["content"], taskData["pointScore"]);
+        });
+    } else {
+        //error has occured
+        console.log(response);
+    }
 });

@@ -35,7 +35,11 @@ export class Render {
         deleteButton.addEventListener("click", (e) => {
             this.api.removeTask(id, true).then((result) => {
                 console.log(result);
-                this.removeTask(id);
+                if (result.status) {
+                    this.removeTask(id);
+                } else {
+                    location.reload();
+                }
             });
         });
         deleteButton.innerHTML = "Delete";
@@ -74,13 +78,13 @@ export class Render {
             case "blue":
                 colorClassName = "text-bg-primary";
                 break;
-                case "red":
-                    colorClassName = "text-bg-danger";
-                    break;
-                    case "green":
-                        colorClassName = "text-bg-success";
-                        break;
-            
+            case "red":
+                colorClassName = "text-bg-danger";
+                break;
+            case "green":
+                colorClassName = "text-bg-success";
+                break;
+
             default:
                 break;
         }

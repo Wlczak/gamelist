@@ -104,4 +104,18 @@ class Database
         include "templates/dbError.php";
         die;
     }
+    function verifyToken()
+    {
+        if ($_SESSION['isLoggedIn'] && isset($_COOKIE['authToken']) && $_COOKIE['authToken'] == $_SESSION['tokenSecret']) {
+            //$_SESSION['authMsg'] = 1; #debug
+            $Database = new Database;
+            $token = $_SESSION['tokenSecret'];
+            if ($Database->checkIfExists("tokens", "token", $token)) {
+                $Token = new Token;
+                $Token->extendTokenTime($_SESSION['uidSecret'], $_SESSION['tokenSecret']);
+                return true;
+            }
+        }
+        return false;
+    }
 }
