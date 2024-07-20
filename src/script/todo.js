@@ -4,7 +4,6 @@ import { Render } from "./render.js";
 //declaration
 var api = new Api();
 var render = new Render(api);
-var pointCounter = document.getElementById("pointCounter");
 
 api.getList(1).then((response) => {
     if (typeof response[0] == "object") {
@@ -19,5 +18,5 @@ api.getList(1).then((response) => {
 
 api.getPoints().then((response) => {
     console.log(response);
-    pointCounter.innerHTML = response.points;
+    render.changeScore(response.points);
 });

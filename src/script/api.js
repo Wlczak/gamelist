@@ -40,10 +40,18 @@ export class Api {
         };
         return this.apiQuery(request);
     }
-    getPoints(){
+    getPoints() {
         var request = {
-            requestType: "getPoints"
-        }
+            requestType: "getPoints",
+        };
+        return this.apiQuery(request);
+    }
+    doneTask(taskId, taskScore) {
+        var request = {
+            requestType: "doneTask",
+            taskId: taskId,
+            taskScore: taskScore,
+        };
         return this.apiQuery(request);
     }
 }

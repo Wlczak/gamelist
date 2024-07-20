@@ -29,6 +29,17 @@ export class Render {
         doneButton.className = "btn btn-success";
         doneButton.innerHTML = "+" + pointScore;
         doneButton.value = pointScore;
+        doneButton.addEventListener("click", (e) => {
+            var taskScore = e.target.value;
+            this.api.doneTask(id, taskScore).then((result) => {
+                console.log(result);
+                if (result.status) {
+                    this.doneTask(id, taskScore);
+                } else {
+                    location.reload();
+                }
+            });
+        });
         buttonDiv.appendChild(doneButton);
 
         deleteButton.type = "button";
@@ -65,6 +76,52 @@ export class Render {
             task.remove();
         };
     }
+    doneTask(id, taskScore) {
+        const task = document.getElementById(id);
+        task.animate(
+            [
+                { scale: 1, opacity: 1 },
+                { scale: 10, opacity: 0 },
+            ],
+            { duration: 250, fill: "forwards", easing: "ease-in" }
+        ).onfinish = () => {
+            task.remove();
+            this.changeScore(taskScore);
+        };
+    }
+    async changeScore(score) {
+        //console.log(score);
+
+        var i = 1;
+        var pointCounter = document.getElementById("pointCounter");
+        var counter = 0;
+        var time = 1000 / score; //time in ms
+        var add = 10;
+
+        if(score >=0){
+            while (i <= score) {
+                if (score - i < 250) add = 1;
+                counter = parseInt(pointCounter.innerHTML) + add;
+                pointCounter.innerHTML = counter;
+                i = i + add;
+                await this.delay(time);
+            }
+        }else{
+            while (i >= score) {
+                if (score + i < 250) add = 1;
+                counter = parseInt(pointCounter.innerHTML) - add;
+                pointCounter.innerHTML = counter;
+                i = i - add;
+                await this.delay(time);
+            }
+        }
+        
+    }
+
+    delay(ms) {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
     showToast(content, color) {
         //create tags
         var toastContainer = document.getElementById("toast-container");

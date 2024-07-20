@@ -73,6 +73,32 @@ class Database
         return $response;
     }
 
+    function doneTask($request): array
+    {
+        $keys = ["taskId", "taskScore"];
+        $request = $this->checkKeys($request, $keys);
+        if (!$request["status"])
+            return $request;
+
+
+        $taskId = $request['taskId'];
+        $taskScore = $request['taskScore'];
+        $uid = $_SESSION['uidSecret'];
+
+        $sql = "SELECT `status` FROM `tasks` WHERE `tasks`.`id` = $taskId";
+        $result = $this->query($sql);
+        if ($result->fetch_column()[0]) {
+        }
+
+
+
+        $sql = "UPDATE `tasks` SET `status` = '1' WHERE `tasks`.`id` = $taskId";
+        $this->updateScore($uid, $taskScore);
+        $this->query($sql);
+        $response["status"] = true;
+        return $response;
+    }
+
     function query($sql)
     {
         try {
@@ -102,6 +128,8 @@ class Database
         };
         return false;
     }
+
+
     function createUser($username, $password)
     {
         $this->query("INSERT INTO `users` (`id`, `username`, `password`) VALUES (NULL, '$username', '$password');");
@@ -129,5 +157,12 @@ class Database
             }
         }
         return false;
+    }
+
+    function updateScore($uid, $score)
+    {
+
+        $sql = "UPDATE `users` SET `points` = `points`+$score WHERE `users`.`id` = $uid";
+        $this->query($sql);
     }
 }
