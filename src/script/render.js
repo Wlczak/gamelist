@@ -28,6 +28,7 @@ export class Render {
         doneButton.type = "button";
         doneButton.className = "btn btn-success";
         doneButton.innerHTML = "+" + pointScore;
+        doneButton.value = pointScore;
         buttonDiv.appendChild(doneButton);
 
         deleteButton.type = "button";

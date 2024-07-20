@@ -63,6 +63,16 @@ class Database
         return $response;
     }
 
+    function getPoints($request): array
+    {
+        $uid = $_SESSION['uidSecret'];
+        $sql = "SELECT points FROM users WHERE id = $uid";
+        $result = $this->query($sql);
+        $response["points"] = $result->fetch_column();
+
+        return $response;
+    }
+
     function query($sql)
     {
         try {
