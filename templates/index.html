@@ -5,17 +5,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="google-site-verification" content="XRS-DlqvCSDD76UDmBelZK-oG16XL20KyEUnDFdgCo4" />
         <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WYTVNWXJG6"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WYTVNWXJG6"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+
+            gtag('config', 'G-WYTVNWXJG6');
+        </script>
+        <script>function test(){
+            window.alert("hi")
         }
-        gtag('js', new Date());
-
-        gtag('config', 'G-WYTVNWXJG6');
-    </script>
+            </script>
         <script type="module" src="src/script/todo.js"></script>
         <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
         <title>To-Do</title>
@@ -92,12 +96,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Add task</button>
+                        <button type="button" class="btn btn-primary" id="addTaskButton">Add task</button>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
         <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
     </body>
 </html>

@@ -99,6 +99,24 @@ class Database
         return $response;
     }
 
+    function createTask($request)
+    {
+        $keys = ["taskContent", "taskScore"];
+        $request = $this->checkKeys($request, $keys);
+        if (!$request["status"])
+            return $request;
+
+        $taskContent = $request['taskContent'];
+        $taskScore = $request['taskScore'];
+        $uid = $_SESSION['uidSecret'];
+
+        $sql = "INSERT INTO `tasks` (`id`, `listId`, `uid`, `content`, `pointScore`, `status`) VALUES (NULL, '$uid', '$uid', '$taskContent', '$taskScore', '0');";
+        $this->query($sql);
+
+        $response['lol'] = 1;
+        return $response;
+    }
+
     function query($sql)
     {
         try {

@@ -122,7 +122,7 @@ export class Render {
     }
 
     showToast(content, color) {
-        var toastName = content + "-" + color+Date.now();
+        var toastName = content + "-" + color + Date.now();
 
         //create tags
         var toastContainer = document.getElementById("toast-container");

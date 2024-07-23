@@ -20,3 +20,14 @@ api.getPoints().then((response) => {
     console.log(response);
     render.changeScore(response.points);
 });
+document.getElementById("addTaskButton").addEventListener("click", (e) => {
+    var score = document.getElementById("scoreValue").value;
+    var content = document.getElementById("taskName").value;
+    if (score == "" || content == "") {
+        render.showToast("Please fill out all inputs", "red");
+    } else {
+        api.createTask(content, score).then((response) => {
+            console.log(response);
+        });
+    }
+});

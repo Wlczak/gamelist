@@ -54,4 +54,12 @@ export class Api {
         };
         return this.apiQuery(request);
     }
+    createTask(taskContent, taskScore) {
+        var request = {
+            requestType: "createTask",
+            taskContent: taskContent,
+            taskScore: taskScore,
+        };
+        return this.apiQuery(request);
+    }
 }
