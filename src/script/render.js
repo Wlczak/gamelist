@@ -98,7 +98,7 @@ export class Render {
         var time = 1000 / score; //time in ms
         var add = 10;
 
-        if(score >=0){
+        if (score >= 0) {
             while (i <= score) {
                 if (score - i < 250) add = 1;
                 counter = parseInt(pointCounter.innerHTML) + add;
@@ -106,7 +106,7 @@ export class Render {
                 i = i + add;
                 await this.delay(time);
             }
-        }else{
+        } else {
             while (i >= score) {
                 if (score + i < 250) add = 1;
                 counter = parseInt(pointCounter.innerHTML) - add;
@@ -115,7 +115,6 @@ export class Render {
                 await this.delay(time);
             }
         }
-        
     }
 
     delay(ms) {
@@ -123,6 +122,8 @@ export class Render {
     }
 
     showToast(content, color) {
+        var toastName = content + "-" + color+Date.now();
+
         //create tags
         var toastContainer = document.getElementById("toast-container");
         var toast = document.createElement("div");
@@ -148,7 +149,7 @@ export class Render {
         }
 
         toast.className = "toast align-items-center border-0 " + colorClassName;
-        toast.id = "toast";
+        toast.id = toastName;
         toast.role = "alert";
         toast.setAttribute("aria-live", "assertive");
         toast.setAttribute("aria-atomic", "true");
@@ -161,7 +162,7 @@ export class Render {
 
         closeBtn.type = "button";
         closeBtn.className = "btn-close btn-close-white me-2 m-auto";
-        closeBtn.setAttribute("data-bs-dismiss", "toast");
+        closeBtn.setAttribute("data-bs-dismiss", toastName);
         closeBtn.setAttribute("aria-label", "Close");
         flex.appendChild(closeBtn);
 
@@ -169,7 +170,7 @@ export class Render {
         toast.appendChild(flex);
         toastContainer.appendChild(toast);
 
-        const toastElement = document.getElementById("toast");
+        const toastElement = document.getElementById(toastName);
         const toastInstance = new bootstrap.Toast(toastElement);
         toastInstance.show();
     }
