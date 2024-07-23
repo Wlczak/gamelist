@@ -59,10 +59,15 @@ class TodoApi
                             case "doneTask":
                                 $response = $this->Database->doneTask($request);
                                 break;
+                            case "createTask":
+                                break;
                             default:
                                 $response["msg"] = "given requestType is undefined: \"" . $this->request['requestType'] . "\"";
                                 $response["help"] = "Get help with the api at: https://github.com/Wlczak/gamelist/wiki/Api-backend";
                                 break;
+                        }
+                        if (!isset($response)) {
+                            $response["msg"] = "Requested api method didn't return a response";
                         }
                     }
             }
