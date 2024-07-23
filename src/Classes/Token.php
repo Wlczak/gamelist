@@ -26,19 +26,19 @@ class Token
             //exists
             $result = $Database->query("SELECT id, uid FROM tokens WHERE token = '$token'");
             $row = $result->fetch_assoc();
-            $_SESSION['authMsg'] = $row['uid'];
+            //$_SESSION['authMsg'] = $row['uid'];
             if ($uid == $row['uid']) {
-                $_SESSION['authMsg'] = "same";
+                //$_SESSION['authMsg'] = "same";
                 $id = $row['id'];
                 $Database->query("UPDATE `tokens` SET `expires` = '$expires' WHERE id = $id");
             } else {
-                $_SESSION['authMsg'] = "not same";
+                // $_SESSION['authMsg'] = "not same";
                 $this->setSessionToken($uid, $this->generateSessionToken());
             }
         } else {
             //doesnt exist
             $Database->query("INSERT INTO `tokens` (`id`, `uid`, `token`, `expires`) VALUES (NULL, $uid, '$token', '$expires');");
-            $_SESSION['authMsg'] = "new token created";
+            //$_SESSION['authMsg'] = "new token created";
         }
     }
     function extendTokenTime($uid, $token)
