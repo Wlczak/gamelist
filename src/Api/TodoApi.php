@@ -60,21 +60,20 @@ class TodoApi
                                 $response = $this->Database->doneTask($request);
                                 break;
                             case "createTask":
+                                $response = $this->Database->createTask($request);
                                 break;
                             default:
                                 $response["msg"] = "given requestType is undefined: \"" . $this->request['requestType'] . "\"";
                                 $response["help"] = "Get help with the api at: https://github.com/Wlczak/gamelist/wiki/Api-backend";
                                 break;
                         }
-                        if (!isset($response)) {
-                            $response["msg"] = "Requested api method didn't return a response";
-                        }
                     }
             }
         }
-        if (!gettype($response) == "array" || !isset($response)) {
-            $response =  ["error" => "Api method error: method returned ivalid values"];
+        if (gettype($response) !== "array" || !isset($response)) {
+            $response = ["error" => "Api method error: method returned ivalid values"];
         }
+
         return $response;
     }
     function returnResponse($array)
