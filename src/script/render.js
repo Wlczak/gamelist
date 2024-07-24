@@ -109,24 +109,35 @@ export class Render {
         var i = 1;
         var pointCounter = document.getElementById("pointCounter");
         var counter = 0;
+        var add = 1;
+        while (Math.abs(score) / 100 > add) {
+            add = add * 10;
+        }
         var time = 1000 / score; //time in ms
-        var add = 10;
-
+        console.log(add);
         if (score >= 0) {
             while (i <= score) {
-                if (score - i < 250) add = 1;
-                counter = parseInt(pointCounter.innerHTML) + add;
-                pointCounter.innerHTML = counter;
-                i = i + add;
-                await this.delay(time);
+                if ((score - i) / 10 < add && add > 1) {
+                    add = add / 10;
+                } else {
+                    counter = parseInt(pointCounter.innerHTML) + add;
+                    pointCounter.innerHTML = counter;
+                    i = i + add;
+                    await this.delay(time);
+                }
             }
         } else {
-            while (i >= score) {
-                if (score + i < 250) add = 1;
-                counter = parseInt(pointCounter.innerHTML) - add;
-                pointCounter.innerHTML = counter;
-                i = i - add;
-                await this.delay(time);
+            score = Math.abs(score);
+
+            while (i <= score) {
+                if ((score - i) / 10 < add && add > 1) {
+                    add = add / 10;
+                } else {
+                    counter = parseInt(pointCounter.innerHTML) - add;
+                    pointCounter.innerHTML = counter;
+                    i = i + add;
+                    await this.delay(time);
+                }
             }
         }
     }
