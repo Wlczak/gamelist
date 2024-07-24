@@ -124,7 +124,9 @@ class Database
         } catch (mysqli_sql_exception $e) {
             $this->throwDatabaseError($e);
         }
-        return $conn->query($sql);
+        $result = $conn->query($sql);
+        $conn->close();
+        return $result;
     }
 
     function checkKeys($request, $keys)
