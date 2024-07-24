@@ -111,9 +111,12 @@ class Database
         $uid = $_SESSION['uidSecret'];
 
         $sql = "INSERT INTO `tasks` (`id`, `listId`, `uid`, `content`, `pointScore`, `status`) VALUES (NULL, '$uid', '$uid', '$taskContent', '$taskScore', '0');";
-        $this->query($sql);
+        $result = $this->query($sql);
 
-        $response['lol'] = 1;
+        if ($result === false) {
+            return $response['error'] = "Sql connection failed.";
+        }
+        $response["msg"] = "Task created succesfully";
         return $response;
     }
 

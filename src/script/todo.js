@@ -5,16 +5,7 @@ import { Render } from "./render.js";
 var api = new Api();
 var render = new Render(api);
 
-api.getList(1).then((response) => {
-    if (typeof response[0] == "object") {
-        response.forEach((taskData) => {
-            render.addTask(taskData["id"], taskData["content"], taskData["pointScore"]);
-        });
-    } else {
-        //error has occured
-        console.log(response);
-    }
-});
+render.refreshTasks();
 
 api.getPoints().then((response) => {
     console.log(response);
@@ -23,11 +14,17 @@ api.getPoints().then((response) => {
 document.getElementById("addTaskButton").addEventListener("click", (e) => {
     var score = document.getElementById("scoreValue").value;
     var content = document.getElementById("taskName").value;
+
     if (score == "" || content == "") {
         render.showToast("Please fill out all inputs", "red");
     } else {
         api.createTask(content, score).then((response) => {
-            console.log(response);
+            if (response.msg == undefined) {
+                render.showToast("Failed adding new task", "red");
+            } else {
+                render.showToast("Task added succesfully", "green");
+                render.refreshTasks();
+            }
         });
     }
 });

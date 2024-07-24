@@ -2,6 +2,20 @@ export class Render {
     constructor(api) {
         this.api = api;
     }
+    refreshTasks() {
+        this.api.getList(1).then((response) => {
+            document.getElementById("taskParent").innerHTML = "";
+            if (typeof response[0] == "object") {
+                response.forEach((taskData) => {
+                    this.addTask(taskData["id"], taskData["content"], taskData["pointScore"]);
+                });
+            } else {
+                //error has occured
+                console.log(response);
+            }
+        });
+    }
+
     addTask(id, content, pointScore) {
         var taskParent = document.getElementById("taskParent");
         var taskDiv = document.createElement("div");
