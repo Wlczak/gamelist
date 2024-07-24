@@ -47,6 +47,9 @@ class Database
         while ($row = $result->fetch_assoc()) {
             $response[] = $row;
         }
+        if (!isset($row)) {
+            $response['msg'] = "No task found";
+        }
         return $response;
     }
 
