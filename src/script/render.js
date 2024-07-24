@@ -11,7 +11,6 @@ export class Render {
                 });
             } else {
                 //error has occured
-                console.log(response);
             }
         });
     }
@@ -46,7 +45,6 @@ export class Render {
         doneButton.addEventListener("click", (e) => {
             var taskScore = e.target.value;
             this.api.doneTask(id, taskScore).then((result) => {
-                console.log(result);
                 if (result.status) {
                     this.doneTask(id, taskScore);
                 } else {
@@ -60,7 +58,6 @@ export class Render {
         deleteButton.className = "btn btn-danger";
         deleteButton.addEventListener("click", (e) => {
             this.api.removeTask(id).then((result) => {
-                console.log(result);
                 if (result.status) {
                     this.removeTask(id);
                 } else {
@@ -104,7 +101,6 @@ export class Render {
         };
     }
     async changeScore(score) {
-        //console.log(score);
 
         var i = 1;
         var pointCounter = document.getElementById("pointCounter");
@@ -114,7 +110,7 @@ export class Render {
             add = add * 10;
         }
         var time = 1000 / score; //time in ms
-        console.log(add);
+        
         if (score >= 0) {
             while (i <= score) {
                 if ((score - i) / 10 < add && add > 1) {

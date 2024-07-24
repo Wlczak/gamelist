@@ -8,7 +8,6 @@ var render = new Render(api);
 render.refreshTasks();
 
 api.getPoints().then((response) => {
-    console.log(response);
     render.changeScore(response.points);
 });
 document.getElementById("addTaskButton").addEventListener("click", (e) => {
