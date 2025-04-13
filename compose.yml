@@ -7,7 +7,7 @@ services:
     ports:
       - "9000:80"
     volumes:
-      - ./:/var/www/html
+      - ./:/var/www/html/gamelist
     depends_on:
       - gamelist-db
     environment:
@@ -23,7 +23,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: gamelist
-      MYSQL_USER: root
+      MYSQL_USER: gamelist
       MYSQL_PASSWORD: root
     ports:
       - "3306:3306"
