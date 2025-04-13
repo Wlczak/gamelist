@@ -8,9 +8,9 @@ use mysqli_sql_exception;
 class Database
 {
     # Config
-    public $hostname = "192.168.0.106";
-    public $username = "gamelist";
-    public $password = "todolist";
+    public $hostname = "gamelist-db";
+    public $username = "root";
+    public $password = "root";
     public $database = "gamelist";
 
     # universal SQL query
