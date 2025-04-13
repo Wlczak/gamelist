@@ -1,59 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="google-site-verification" content="XRS-DlqvCSDD76UDmBelZK-oG16XL20KyEUnDFdgCo4" />
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-WYTVNWXJG6"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
 
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag('js', new Date());
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="XRS-DlqvCSDD76UDmBelZK-oG16XL20KyEUnDFdgCo4" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WYTVNWXJG6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-            gtag('config', 'G-WYTVNWXJG6');
-        </script>
-        <script>function test(){
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-WYTVNWXJG6');
+    </script>
+    <script>function test() {
             window.alert("hi")
         }
-            </script>
-        <script type="module" src="src/script/todo.js"></script>
-        <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
-        <title>To-Do</title>
-    </head>
-    <body data-bs-theme="light">
-        <div class="container">
-            <nav class="navbar bg-body-tertiary">
-                <div class="container-fluid">
-                    <h1 class="ms-3">Gamelist</h1>
-                    <div class="d-flex">
-                        <h1>Points:</h1>
-                        <h1 class="text-center" id="pointCounter">0</h1>
-                    </div>
+    </script>
+    <script type="module" src="src/script/todo.js"></script>
+    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
+    <title>To-Do</title>
+</head>
 
-                    <img src="img/pfp/1.png" style="width: 100px; height: 100px" />
+<body data-bs-theme="light">
+    <div class="container">
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+                <h1 class="ms-3">Gamelist</h1>
+                <div class="d-flex">
+                    <h1>Points:</h1>
+                    <h1 class="text-center" id="pointCounter">0</h1>
                 </div>
-            </nav>
-            <div class="row row-cols-1 justify-content-center mt-5">
-                <div class="col-md-6 border">
-                    <div class="row border">
-                        <h1>To-Do</h1>
-                        <button
-                            class="btn btn-primary d-flex justify-content-center align-items-center"
-                            data-bs-toggle="modal"
-                            data-bs-target="#exampleModal"
-                        >
-                            <b>Add task</b>
-                            <svg class="bi" width="32" height="32" fill="currentColor">
-                                <use xlink:href="vendor/twbs/bootstrap-icons/bootstrap-icons.svg#plus" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div id="taskParent"></div>
-                    <!--<div class="row border justify-content-between">
+
+                <img src="img/pfp/1.png" style="width: 100px; height: 100px" />
+            </div>
+        </nav>
+        <div class="row row-cols-1 justify-content-center mt-5">
+            <div class="col-md-6 border">
+                <div class="row border">
+                    <h1>To-Do</h1>
+                    <button class="btn btn-primary d-flex justify-content-center align-items-center"
+                        data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <b>Add task</b>
+                        <svg class="bi" width="32" height="32" fill="currentColor">
+                            <use xlink:href="vendor/twbs/bootstrap-icons/bootstrap-icons.svg#plus" />
+                        </svg>
+                    </button>
+                </div>
+                <div id="taskParent"></div>
+                <!--<div class="row border justify-content-between">
                         
                         <div class="col"><h2>task</h2></div>
                         <div class="btn-group col-md-5 mt-1 mb-1">
@@ -61,48 +60,38 @@
                             <button type="button" class="btn btn-danger">Delete</button>
                         </div>
                     </div>-->
-                </div>
             </div>
         </div>
+    </div>
 
-        <div
-            class="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            aria-labelledby="newTaskModal"
-            aria-hidden="true"
-        >
-            <div class="modal-dialog modal-fullscreen-md-down">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add task</h1>
-                        <button
-                            type="button"
-                            class="btn-close"
-                            data-bs-dismiss="modal"
-                            aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label for="taskName" class="col-form-label">Task name:</label>
-                                <input type="text" class="form-control" id="taskName" required/>
-                            </div>
-                            <div class="mb-3">
-                                <label for="scoreValue" class="col-form-label">Score value:</label>
-                               <input type="number" class="form-control" id="scoreValue" required></input>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" id="addTaskButton">Add task</button>
-                    </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="newTaskModal" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen-md-down">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Add task</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="taskName" class="col-form-label">Task name:</label>
+                            <input type="text" class="form-control" id="taskName" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="scoreValue" class="col-form-label">Score value:</label>
+                            <input type="number" class="form-control" id="scoreValue" required></input>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="addTaskButton">Add task</button>
                 </div>
             </div>
         </div>
-        <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
-        <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-    </body>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
+    <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
 </html>
