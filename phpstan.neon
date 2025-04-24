@@ -1,5 +1,5 @@
 parameters:
     ignoreErrors:
-    level: 1
+    level: 0
     paths:
         - src
