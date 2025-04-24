@@ -4,7 +4,7 @@ FROM php:8.4.6-apache-bullseye
 RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # install dependencies
-WORKDIR /var/www/html/gamelist
+WORKDIR /var/www/html
 #COPY composer.json ./
 
 RUN a2enmod rewrite

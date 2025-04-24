@@ -7,7 +7,7 @@ services:
     ports:
       - "9000:80"
     volumes:
-      - ./:/var/www/html/gamelist
+      - ./:/var/www/html
     depends_on:
       - gamelist-db
     environment:
