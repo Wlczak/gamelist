@@ -28,15 +28,20 @@ jobs:
             - name: Validate composer.json and composer.lock
               run: |
                   composer validate --strict
-            - name: Cache Composer packages
-              id: composer-cache
-              uses: actions/cache@v3
+                  - name: "Restore result cache"
+                  uses: actions/cache/restore@v4
+                  with:
+                    path: tmp # same as in phpstan.neon
+                    key: "phpstan-result-cache-${{ github.run_id }}"
+                    restore-keys: |
+                      phpstan-result-cache-
+
+            - name: "Run PHPStan"
+              run: "vendor/bin/phpstan"
+
+            - name: "Save result cache"
+              uses: actions/cache/save@v4
+              if: ${{ !cancelled() }}
               with:
-                  path: buffet-api/vendor
-                  key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
-                  restore-keys: |
-                      ${{ runner.os }}-php-
-            - name: Run PHPStan
-              run: |
-                  composer install
-                  ./vendor/bin/phpstan analyse --memory-limit 4G -c phpstan.neon --autoload-file vendor/autoload.php --error-format=gitlab src tests >> phpstan-result.json
+                  path: tmp # same as in phpstan.neon
+                  key: "phpstan-result-cache-${{ github.run_id }}"
