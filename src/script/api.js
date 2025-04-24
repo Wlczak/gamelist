@@ -1,4 +1,3 @@
-//console.log(window.location.origin + window.APP_CONFIG.apiUrl+"/api")
 export class Api {
     apiQuery(array) {
         var data = JSON.stringify(array);
