@@ -25,20 +25,7 @@ jobs:
             - name: Validate composer.json and composer.lock
               run: |
                   composer validate --strict
-            - name: "Restore result cache"
-              uses: actions/cache/restore@v4
-              with:
-                  path: tmp # same as in phpstan.neon
-                  key: "phpstan-result-cache-${{ github.run_id }}"
-                  restore-keys: |
-                      phpstan-result-cache-
-
             - name: "Run PHPStan"
-              run: "vendor/bin/phpstan"
+              run: "vendor/bin/phpstan analyse --memory-limit 4G -c phpstan.neon --autoload-file vendor/autoload.php"
 
-            - name: "Save result cache"
-              uses: actions/cache/save@v4
-              if: ${{ !cancelled() }}
-              with:
-                  path: tmp # same as in phpstan.neon
-                  key: "phpstan-result-cache-${{ github.run_id }}"
+            
