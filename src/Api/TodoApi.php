@@ -4,29 +4,36 @@ namespace Gamelist\Api;
 
 use Gamelist\Classes\Database;
 use Gamelist\Classes\Session;
-use Psr\Http\Message\ServerRequestInterface as RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface as RequestInterface;
 
 class TodoApi
 {
     # variable declaration
-    public $request;
-    public $Database;
-    public $Session;
+    /**
+     * @var array{requestType:string}
+     */
+    public array $request;
+    public Database $Database;
+    public Session $Session;
 
     function main(RequestInterface $request, ResponseInterface $html): ResponseInterface
     {
-        $this->request = $this->getRecievedArray(); // set array
         $this->Database = new Database;
         $this->Session = new Session;
 
-        $response = $this->handleRequest($this->request);
+        $response = $this->handleRequest();
 
         $html->getBody()->write($this->returnResponse($response)); // Set the html body
         return $html;
     }
-    function handleRequest($request): array
+
+    /**
+     * @return array{error:string,status:bool}
+     */
+    function handleRequest(): array
     {
+        $request = $this->getRecievedArray();
         if (!isset($request) || !key_exists("requestType", $request)) {
             return $response = [
                 "error" => "[requestType] not defined"
@@ -75,6 +82,10 @@ class TodoApi
         }
         return $response;
     }
+
+    /**
+     * @param $array
+     */
     function returnResponse($array)
     {
         ob_start();
@@ -82,9 +93,14 @@ class TodoApi
         echo json_encode($array);
         return ob_get_clean();
     }
+
     function getRecievedArray(): array
     {
         $json = file_get_contents('php://input'); // get JSON
+        $array = json_decode($json, true);
+        if (!key_exists("requestType", $array)) {
+            return ["error" => "[requestType] not defined"];
+        }
         return json_decode($json, true); // decode and return JSON
     }
 }
