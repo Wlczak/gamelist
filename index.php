@@ -9,6 +9,7 @@ use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Factory\AppFactory;
 
 require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/src/Bootstrap.php';
 
 $app = AppFactory::create();
 
@@ -18,9 +19,6 @@ $app->addErrorMiddleware(true, true, true);
 
 $app->add(AuthMiddleware::class);
 
-$baseUrl = "/";
-
-define("BASE_URL", rtrim($baseUrl, "/"));
 
 $app->setBasePath(BASE_URL);
 

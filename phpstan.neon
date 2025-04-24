@@ -3,3 +3,5 @@ parameters:
     level: 1
     paths:
         - src
+    bootstrapFiles:
+        - %rootDir%/../../../src/Bootstrap.php
