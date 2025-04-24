@@ -1,9 +1,13 @@
 import { Api } from "./api.js";
 import { Render } from "./render.js";
+import { Swapper } from "./body_swapper.js";
 
 //declaration
 var api = new Api();
 var render = new Render(api);
+var swapper = new Swapper();
+
+swapper.fetch_body(window.location.origin + "/components/" + window.location.pathname.split("/").pop());
 
 render.refreshTasks();
 
