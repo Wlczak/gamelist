@@ -8,10 +8,10 @@ use mysqli_sql_exception;
 class Database
 {
     # Config
-    public $hostname = "gamelist-db";
-    public $username = "root";
-    public $password = "root";
-    public $database = "gamelist";
+    public string $hostname = "gamelist-db";
+    public string $username = "root";
+    public string $password = "root";
+    public string $database = "gamelist";
 
     # universal SQL query
     function apiQuery($request): array
