@@ -19,5 +19,8 @@
             "name": "Adam Vlček",
             "email": "adivlcak@seznam.cz"
         }
-    ]
+    ],
+    "require-dev": {
+        "phpstan/phpstan": "^2.1"
+    }
 }
