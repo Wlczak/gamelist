@@ -10,9 +10,13 @@ WORKDIR /var/www/html
 RUN a2enmod rewrite
 RUN a2enmod actions
 
+# install dependencies
+RUN apt-get update && apt-get install -y \
+    libzip-dev
 # configure PHP
 #COPY php.ini /usr/local/etc/php/php.ini
 RUN docker-php-ext-install pdo_mysql mysqli
+RUN docker-php-ext-install zip
 
 # set open ports
 EXPOSE 9000
