@@ -1,0 +1,33 @@
+name: PHPStan analysis
+
+on:
+    push:
+        branches:
+            - "*"
+    pull_request:
+        branches:
+            - "*"
+
+jobs:
+    phpstan:
+        runs-on: ubuntu-latest
+        container:
+            image: php:8.4.6-apache-bullseye
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Install dependencies
+              run: |
+                  apt-get update
+                  apt-get install -y libzip-dev
+                  docker-php-ext-install zip pdo_mysql mysqli
+                  curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+            - name: Validate composer.json and composer.lock
+              run: |
+                  composer validate --strict
+            - name: Install composer
+              run: "composer install"
+            - name: "Run PHPStan"
+              run: "vendor/bin/phpstan analyse --memory-limit 4G -c phpstan.neon --autoload-file vendor/autoload.php"
+
+            
