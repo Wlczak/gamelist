@@ -31,7 +31,11 @@ class AuthMiddleware
             $_SESSION['isLoggedIn'] = false;
         }
 
-        if ($_SERVER['REQUEST_URI'] == "/gamelist/login" || $_SERVER['REQUEST_URI'] == "/gamelist/register" || $_SERVER['REQUEST_URI'] == "/gamelist/api" || $_SERVER['REQUEST_URI'] == "/gamelist/auth") {
+        if (preg_match('/\.(?:png|jpg|jpeg|gif|ico|css|js|svg|woff2|woff|eot|ttf|otf)$/', $_SERVER['REQUEST_URI'])) {
+            return $response;
+        }
+        
+        if ($_SERVER['REQUEST_URI'] == BASE_URL."/login" || $_SERVER['REQUEST_URI'] == BASE_URL."/register" || $_SERVER['REQUEST_URI'] == BASE_URL."/api" || $_SERVER['REQUEST_URI'] == BASE_URL."/auth") {
             return $response;
         } else {
             if($this->Database->verifyToken()){
@@ -39,6 +43,6 @@ class AuthMiddleware
             }
         }
         
-        return $response->withHeader('Location', 'login')->withStatus(302);
+        return $response->withHeader('Location', BASE_URL.'/login')->withStatus(302);
     }
 }

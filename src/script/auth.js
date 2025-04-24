@@ -16,8 +16,7 @@ api.getAuthError().then((response) => {
     if (response.authToken != undefined && response.authToken != null) {
         document.cookie = "authToken=" + response.authToken;
         setTimeout(() => {
-            window.location.replace("/gamelist");
-            
+            window.location.replace(window.APP_CONFIG.appUrl+"/");
         }, 750);
     }
 });

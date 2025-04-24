@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="google-site-verification" content="XRS-DlqvCSDD76UDmBelZK-oG16XL20KyEUnDFdgCo4" />
-        <!-- Google tag (gtag.js) -->
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="google-site-verification" content="XRS-DlqvCSDD76UDmBelZK-oG16XL20KyEUnDFdgCo4" />
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WYTVNWXJG6"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -15,44 +16,40 @@
         gtag('js', new Date());
 
         gtag('config', 'G-WYTVNWXJG6');
+        
+        gtag('event', 'page_view', {
+            'origin': window.location.origin
+        })
     </script>
-        <script type="module" src="src/script/auth.js"></script>
-        <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
-        <title>Login</title>
-    </head>
-    <body data-bs-theme="light">
-        <div class="container">
-            <div class="row d-flex justify-content-center align-items-center" style="height: 100vh">
-                <div class="col-xsm-10 col-lg-6 col-xl-5 border shadow-lg rounded p-5">
-                    <div class="pb-3 d-flex flex-row align-items-end">
-                        <h1>Login</h1>
-                        <p class="mb-2 ms-2">or <a href="register">Register</a></p>
-                    </div>
-                    <form
-                        class="row border-top p-2 pt-3 pb-0 d-flex justify-content-end"
-                        action="auth"
-                        method="post"
-                        required
-                    >
-                        <input class="form-control" type="text" name="username" placeholder="Username" />
+    <script type="module" src="src/script/auth.js"></script>
+    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
+    <title>Login</title>
+</head>
 
-                        <input
-                            class="mt-2 form-control"
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            required
-                        />
-
-                        <button class="col-6 mt-2 btn btn-primary" type="submit" name="type" value="login">
-                            Login
-                        </button>
-                    </form>
+<body data-bs-theme="light">
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center" style="height: 100vh">
+            <div class="col-xsm-10 col-lg-6 col-xl-5 border shadow-lg rounded p-5">
+                <div class="pb-3 d-flex flex-row align-items-end">
+                    <h1>Login</h1>
+                    <p class="mb-2 ms-2">or <a href="register">Register</a></p>
                 </div>
+                <form class="row border-top p-2 pt-3 pb-0 d-flex justify-content-end" action="auth" method="post"
+                    required>
+                    <input class="form-control" type="text" name="username" placeholder="Username" />
+
+                    <input class="mt-2 form-control" type="password" name="password" placeholder="Password" required />
+
+                    <button class="col-6 mt-2 btn btn-primary" type="submit" name="type" value="login">
+                        Login
+                    </button>
+                </form>
             </div>
         </div>
-        <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
+    </div>
+    <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
 
-        <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
-    </body>
+    <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+</body>
+
 </html>

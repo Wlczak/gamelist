@@ -1,7 +1,7 @@
 export class Api {
     apiQuery(array) {
         var data = JSON.stringify(array);
-        return fetch(window.location.protocol + "//" + window.location.hostname + "/gamelist/api", {
+        return fetch(window.location.origin + window.APP_CONFIG.appUrl + "/api", {
             // Added return here
             method: "POST",
             headers: {

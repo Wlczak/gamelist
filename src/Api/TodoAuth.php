@@ -19,7 +19,7 @@ class TodoAuth
         //echo "<title>Loading...</title>";
         return $this->handleAuthRequest($html);
     }
-    function handleAuthRequest($html)
+    function handleAuthRequest(ResponseInterface $html)
     {
         switch ($_POST['type']) {
             case 'login':
@@ -37,7 +37,7 @@ class TodoAuth
         }
         return $html;
     }
-    function login($html)
+    function login(ResponseInterface $html)
     {
         $username = $_POST['username'];
         $password = $_POST['password'];
@@ -61,7 +61,7 @@ class TodoAuth
             $Token = new Token;
             $Token->setSessionToken($uid, "dca9d6119c9292e8d184ececf174c4c7264d371c24b08ca9176252f409dadf3b");
             $_SESSION['isLoggedIn'] = true;
-            return $html->withHeader('Location', '/gamelist')->withStatus(302);
+            return $html->withHeader('Location', BASE_URL ?: "/")->withStatus(302);
         }
 
         return $html;
