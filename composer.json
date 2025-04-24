@@ -3,7 +3,6 @@
     "description": "A gamified todo list",
     "type": "project",
     "require": {
-        "latte/latte": "^3.0",
         "slim/slim": "^4.14",
         "slim/psr7": "^1.7",
         "twbs/bootstrap": "^5.3",
