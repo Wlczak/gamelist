@@ -16,6 +16,9 @@
         gtag('js', new Date());
 
         gtag('config', 'G-WYTVNWXJG6');
+        gtag('event', 'page_view', {
+            'origin': window.location.origin
+        })
     </script>
     <script>function test() {
             window.alert("hi")
@@ -85,7 +88,8 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="addTaskButton">Add task</button>
+                    <button type="button" class="btn btn-primary" id="addTaskButton"
+                        onclick="gtag('event', 'addTask')">Add task</button>
                 </div>
             </div>
         </div>

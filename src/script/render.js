@@ -46,6 +46,7 @@ export class Render {
             var taskScore = e.target.value;
             this.api.doneTask(id, taskScore).then((result) => {
                 if (result.status) {
+                    gtag("event", "task_done")
                     this.doneTask(id, taskScore);
                 } else {
                     location.reload();
@@ -59,6 +60,7 @@ export class Render {
         deleteButton.addEventListener("click", (e) => {
             this.api.removeTask(id).then((result) => {
                 if (result.status) {
+                    gtag("event", "task_deleted")
                     this.removeTask(id);
                 } else {
                     location.reload();
