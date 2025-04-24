@@ -25,6 +25,8 @@ jobs:
             - name: Validate composer.json and composer.lock
               run: |
                   composer validate --strict
+            - name: Install composer
+              run: "composer install"
             - name: "Run PHPStan"
               run: "vendor/bin/phpstan analyse --memory-limit 4G -c phpstan.neon --autoload-file vendor/autoload.php"
 
