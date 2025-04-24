@@ -24,10 +24,10 @@ class Database
         #function content
         try {
             $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+            $conn->close();
         } catch (mysqli_sql_exception $e) {
             $this->throwDatabaseError($e);
         }
-        $conn->close();
         $response["msg"] = "good";
         return $response;
     }
@@ -127,12 +127,13 @@ class Database
     {
         try {
             $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
+            $result = $conn->query($sql);
+            $conn->close();
+            return $result;
+
         } catch (mysqli_sql_exception $e) {
             $this->throwDatabaseError($e);
         }
-        $result = $conn->query($sql);
-        $conn->close();
-        return $result;
     }
 
     function checkKeys($request, $keys)

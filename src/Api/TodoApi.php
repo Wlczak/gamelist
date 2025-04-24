@@ -70,7 +70,7 @@ class TodoApi
                     }
             }
         }
-        if (gettype($response) !== "array" || !isset($response)) {
+        if (gettype($response) !== "array") {
             $response = ["error" => "Api method error: method returned ivalid values"];
         }
         return $response;
