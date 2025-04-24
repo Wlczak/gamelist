@@ -25,12 +25,12 @@ jobs:
             - name: Validate composer.json and composer.lock
               run: |
                   composer validate --strict
-                  - name: "Restore result cache"
-                  uses: actions/cache/restore@v4
-                  with:
-                    path: tmp # same as in phpstan.neon
-                    key: "phpstan-result-cache-${{ github.run_id }}"
-                    restore-keys: |
+            - name: "Restore result cache"
+              uses: actions/cache/restore@v4
+              with:
+                  path: tmp # same as in phpstan.neon
+                  key: "phpstan-result-cache-${{ github.run_id }}"
+                  restore-keys: |
                       phpstan-result-cache-
 
             - name: "Run PHPStan"
