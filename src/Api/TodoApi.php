@@ -34,7 +34,7 @@ class TodoApi
     function handleRequest(): array
     {
         $request = $this->getRecievedArray();
-        if (!isset($request) || !key_exists("requestType", $request)) {
+        if (!key_exists("requestType", $request)) {
             return $response = [
                 "error" => "[requestType] not defined"
             ];
