@@ -1,6 +1,5 @@
 <?php
 
-
-$baseUrl = "/s";
+$baseUrl = "/";
 
 define("BASE_URL", rtrim($baseUrl, "/"));

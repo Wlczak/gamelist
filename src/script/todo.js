@@ -7,7 +7,7 @@ var api = new Api();
 var render = new Render(api);
 var swapper = new Swapper();
 
-swapper.fetch_body(window.location.origin + "/components/" + window.location.pathname.split("/").pop());
+//swapper.fetch_body(window.location.origin + "/components/" + window.location.pathname.split("/").pop());
 
 render.refreshTasks();
 
