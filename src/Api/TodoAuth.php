@@ -61,10 +61,9 @@ class TodoAuth
             $Token = new Token;
             $Token->setSessionToken($uid, "dca9d6119c9292e8d184ececf174c4c7264d371c24b08ca9176252f409dadf3b");
             $_SESSION['isLoggedIn'] = true;
+            // @phpstan-ignore ternary.alwaysTrue
             return $html->withHeader('Location', BASE_URL ?: "/")->withStatus(302);
         }
-
-        return $html;
     }
     function register($html)
     {
