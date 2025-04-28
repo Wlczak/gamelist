@@ -4,8 +4,11 @@ use Gamelist\Api\TodoApi;
 use Gamelist\Api\TodoAuth;
 use Gamelist\Controllers\Todo;
 use Gamelist\Middleware\AuthMiddleware;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Slim\Exception\HttpNotFoundException;
 use Slim\Factory\AppFactory;
 
 require __DIR__ . '/vendor/autoload.php';
@@ -19,10 +22,11 @@ $app->addErrorMiddleware(true, true, true);
 
 $app->add(AuthMiddleware::class);
 
-
 $app->setBasePath(BASE_URL);
 
 $app->get('/', [Todo::class, 'view']);
+
+$app->get('/shop', [Todo::class, 'view']);
 
 $app->get('/login', [Todo::class, 'login']);
 
@@ -49,6 +53,22 @@ $app->add(function (ServerRequestInterface $request, RequestHandlerInterface $ha
         ");
     }
 
+    return $response;
+});
+
+$app->map(['GET'], "/components/{component}", function (RequestInterface $request, ResponseInterface $response, array $args): ResponseInterface {
+    $componentName = $args['component'];
+    $componentFileName = __DIR__ . "/templates/components/" . $componentName . ".html";
+
+    if (is_file($componentFileName)) {
+        ob_start();
+        include $componentFileName;
+        $component = ob_get_clean();
+
+        $response->getBody()->write($component);
+    } else {
+        throw new HttpNotFoundException($request);
+    }
     return $response;
 });
 
