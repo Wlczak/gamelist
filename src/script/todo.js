@@ -6,20 +6,7 @@ var api = new Api();
 var render = new Render(api);
 var router = new Router();
 
-if (window.location.pathname == "/") {
-    await swapper.fetch_body(window.location.origin + "/components/todo");
-} else {
-    await swapper.fetch_body(
-        window.location.origin + "/components/" + window.location.pathname.split("/").pop()
-    );
-}
-
-switch (window.location.pathname) {
-    case "/":
-        setupTodo();
-}
-
-function setupTodo() {
+router.addPath("/", () => {
     render.refreshTasks();
 
     api.getPoints().then((response) => {
@@ -42,4 +29,6 @@ function setupTodo() {
             });
         }
     });
-}
+});
+
+router.addPath("/shop", {});
