@@ -1,33 +1,45 @@
 import { Api } from "./api.js";
 import { Render } from "./render.js";
-import { Swapper } from "./body_swapper.js";
-
+import { Router } from "./router.js";
 //declaration
 var api = new Api();
 var render = new Render(api);
-var swapper = new Swapper();
+var router = new Router();
 
-//swapper.fetch_body(window.location.origin + "/components/" + window.location.pathname.split("/").pop());
+if (window.location.pathname == "/") {
+    await swapper.fetch_body(window.location.origin + "/components/todo");
+} else {
+    await swapper.fetch_body(
+        window.location.origin + "/components/" + window.location.pathname.split("/").pop()
+    );
+}
 
-render.refreshTasks();
+switch (window.location.pathname) {
+    case "/":
+        setupTodo();
+}
 
-api.getPoints().then((response) => {
-    render.changeScore(response.points);
-});
-document.getElementById("addTaskButton").addEventListener("click", (e) => {
-    var score = document.getElementById("scoreValue").value;
-    var content = document.getElementById("taskName").value;
+function setupTodo() {
+    render.refreshTasks();
 
-    if (score == "" || content == "") {
-        render.showToast("Please fill out all inputs", "red");
-    } else {
-        api.createTask(content, score).then((response) => {
-            if (response.msg == undefined) {
-                render.showToast("Failed adding new task", "red");
-            } else {
-                render.showToast("Task added succesfully", "green");
-                render.refreshTasks();
-            }
-        });
-    }
-});
+    api.getPoints().then((response) => {
+        render.changeScore(response.points);
+    });
+    document.getElementById("addTaskButton").addEventListener("click", (e) => {
+        var score = document.getElementById("scoreValue").value;
+        var content = document.getElementById("taskName").value;
+
+        if (score == "" || content == "") {
+            render.showToast("Please fill out all inputs", "red");
+        } else {
+            api.createTask(content, score).then((response) => {
+                if (response.msg == undefined) {
+                    render.showToast("Failed adding new task", "red");
+                } else {
+                    render.showToast("Task added succesfully", "green");
+                    render.refreshTasks();
+                }
+            });
+        }
+    });
+}
