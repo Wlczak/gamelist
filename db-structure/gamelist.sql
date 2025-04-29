@@ -36,6 +36,20 @@ CREATE TABLE `tasks` (
   `status` tinyint(1) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Table structure for table `shop`
+--
+
+CREATE TABLE `shop` (
+  `id` int(11) NOT NULL,
+  `listId` int(11) NOT NULL,
+  `uid` int(11) NOT NULL,
+  `content` varchar(256) NOT NULL,
+  `pointScore` int(11) NOT NULL,
+  `count` int(11) NOT NULL,
+  `status` tinyint(1) DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -74,6 +88,13 @@ ALTER TABLE `tasks`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `shop`
+--
+ALTER TABLE `shop`
+  ADD PRIMARY KEY (`id`);
+
+
+--
 -- Indexes for table `tokens`
 --
 ALTER TABLE `tokens`
@@ -93,6 +114,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `tasks`
 --
 ALTER TABLE `tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `shop`
+--
+ALTER TABLE `shop`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
