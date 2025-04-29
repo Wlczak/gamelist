@@ -62,4 +62,14 @@ export class Api {
         };
         return this.apiQuery(request);
     }
+
+    createItem(taskContent, taskScore, itemCount) {
+        var request = {
+            requestType: "createItem",
+            taskContent: taskContent,
+            taskScore: taskScore,
+            itemCount: itemCount,
+        };
+        return this.apiQuery(request);
+    }
 }

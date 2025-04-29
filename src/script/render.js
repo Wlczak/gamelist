@@ -46,7 +46,7 @@ export class Render {
             var taskScore = e.target.value;
             this.api.doneTask(id, taskScore).then((result) => {
                 if (result.status) {
-                    gtag("event", "task_done")
+                    gtag("event", "task_done");
                     this.doneTask(id, taskScore);
                 } else {
                     location.reload();
@@ -60,7 +60,7 @@ export class Render {
         deleteButton.addEventListener("click", () => {
             this.api.removeTask(id).then((result) => {
                 if (result.status) {
-                    gtag("event", "task_deleted")
+                    gtag("event", "task_deleted");
                     this.removeTask(id);
                 } else {
                     location.reload();
@@ -102,8 +102,88 @@ export class Render {
             this.changeScore(taskScore);
         };
     }
-    async changeScore(score) {
 
+    refreshItems() {
+        this.api.getList(2).then((response) => {
+            document.getElementById("itemParent").innerHTML = "";
+            if (typeof response[0] == "object") {
+                response.forEach((itemData) => {
+                    this.addItem(
+                        itemData["id"],
+                        itemData["content"],
+                        itemData["pointScore"],
+                        itemData["count"]
+                    );
+                });
+            } else {
+                //error has occured
+            }
+        });
+    }
+
+    addItem(id, content, pointScore, count) {
+        let taskParent = document.getElementById("itemParent");
+        let taskDiv = document.createElement("div");
+        let contentDiv = document.createElement("div");
+        let contentTag = document.createElement("h4");
+        let buttonDiv = document.createElement("div");
+        let doneButton = document.createElement("button");
+        let deleteButton = document.createElement("button");
+
+        taskDiv.className = "row border justify-content-between";
+        taskDiv.setAttribute("style", "transition: margin-top 1s;");
+        taskDiv.id = id;
+        //taskDiv.innerHTML =
+        // "<div class='col'><h2>task</h2></div><div class='btn-group col-md-5 mt-1 mb-1'><button type='button' class='btn btn-success'>Done</button><button type='button' class='btn btn-danger'>Delete</button></div>";
+
+        //content
+        contentDiv.className = "col d-flex align-items-center";
+        contentTag.className = "";
+        contentTag.innerHTML = content;
+        contentDiv.appendChild(contentTag);
+
+        //buttons
+        buttonDiv.className = "btn-group col-md-5 mt-1 mb-1";
+        doneButton.type = "button";
+        doneButton.className = "btn btn-success";
+        doneButton.innerHTML = "+" + pointScore;
+        doneButton.value = pointScore;
+        doneButton.addEventListener("click", (e) => {
+            var taskScore = e.target.value;
+            this.api.doneTask(id, taskScore).then((result) => {
+                if (result.status) {
+                    gtag("event", "task_done");
+                    this.doneTask(id, taskScore);
+                } else {
+                    location.reload();
+                }
+            });
+        });
+        buttonDiv.appendChild(doneButton);
+
+        deleteButton.type = "button";
+        deleteButton.className = "btn btn-danger";
+        deleteButton.addEventListener("click", () => {
+            this.api.removeTask(id).then((result) => {
+                if (result.status) {
+                    gtag("event", "task_deleted");
+                    this.removeTask(id);
+                } else {
+                    location.reload();
+                }
+            });
+        });
+        deleteButton.innerHTML = "Delete";
+        buttonDiv.appendChild(deleteButton);
+
+        //append
+        taskDiv.appendChild(contentDiv);
+        taskDiv.appendChild(buttonDiv);
+
+        taskParent.append(taskDiv);
+    }
+
+    async changeScore(score) {
         var i = 1;
         var pointCounter = document.getElementById("pointCounter");
         var counter = 0;
@@ -112,7 +192,7 @@ export class Render {
             add = add * 10;
         }
         var time = 1000 / score; //time in ms
-        
+
         if (score >= 0) {
             while (i <= score) {
                 if ((score - i) / 10 < add && add > 1) {

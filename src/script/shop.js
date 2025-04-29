@@ -11,7 +11,7 @@ export class Shop {
         let render = new Render(api);
         document.getElementById("addItemButton").addEventListener("click", () => {
             let score = document.getElementById("scoreValue").value;
-            let content = document.getElementById("taskName").value;
+            let content = document.getElementById("itemName").value;
             let count = document.getElementById("itemCount").value;
 
             if (score == "" || content == "" || count == "") {
@@ -22,7 +22,7 @@ export class Shop {
                         render.showToast("Failed adding new task", "red");
                     } else {
                         render.showToast("Task added succesfully", "green");
-                        render.refreshTasks();
+                        render.refreshItems();
                     }
                 });
             }

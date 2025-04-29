@@ -10,7 +10,7 @@
                 </svg>
             </button>
         </div>
-        <div id="taskParent"></div>
+        <div id="itemParent"></div>
         <div class="row border justify-content-between">
 
             <div class="col">
@@ -33,7 +33,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="newTaskModal" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="newItemModal" aria-hidden="true">
     <div class="modal-dialog modal-fullscreen-md-down">
         <div class="modal-content">
             <div class="modal-header">
@@ -43,16 +43,16 @@
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="taskName" class="col-form-label">Item name:</label>
-                        <input type="text" class="form-control" id="taskName" required />
+                        <label for="itemName" class="col-form-label">Item name:</label>
+                        <input type="text" class="form-control" id="itemName" required value="testing input"/>
                     </div>
                     <div class="mb-3">
                         <label for="itemCount" class="col-form-label">Item count:</label>
-                        <input type="number" class="form-control" id="itemCount" required></input>
+                        <input type="number" class="form-control" id="itemCount" required value="123"></input>
                     </div>
                     <div class="mb-3">
                         <label for="scoreValue" class="col-form-label">Item price:</label>
-                        <input type="number" class="form-control" id="scoreValue" required></input>
+                        <input type="number" class="form-control" id="scoreValue" required value="321"></input>
                     </div>
                 </form>
             </div>
