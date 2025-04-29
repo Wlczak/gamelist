@@ -4,16 +4,27 @@ namespace Gamelist\Api;
 
 use Gamelist\Classes\Database;
 use Gamelist\Classes\Session;
-use Psr\Http\Message\ServerRequestInterface as RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface as RequestInterface;
 
 class TodoApi
 {
     # variable declaration
+    /**
+     * @var mixed
+     */
     public $request;
     public Database $Database;
+    /**
+     * @var Session
+     */
     public $Session;
 
+    /**
+     * @param RequestInterface $request
+     * @param ResponseInterface $html
+     * @return ResponseInterface
+     */
     function main(RequestInterface $request, ResponseInterface $html): ResponseInterface
     {
         $this->request = $this->getRecievedArray(); // set array
@@ -25,6 +36,11 @@ class TodoApi
         $html->getBody()->write($this->returnResponse($response)); // Set the html body
         return $html;
     }
+
+    /**
+     * @param $request
+     * @return array
+     */
     function handleRequest($request): array
     {
         if (!isset($request) || !key_exists("requestType", $request)) {
@@ -62,6 +78,8 @@ class TodoApi
                             case "createTask":
                                 $response = $this->Database->createTask($request);
                                 break;
+                            case "createItem":
+                                $response = $this->Database->createItem($request);
                             default:
                                 $response["msg"] = "given requestType is undefined: \"" . $this->request['requestType'] . "\"";
                                 $response["help"] = "Get help with the api at: https://github.com/Wlczak/gamelist/wiki/Api-backend";
@@ -75,6 +93,10 @@ class TodoApi
         }
         return $response;
     }
+
+    /**
+     * @param $array
+     */
     function returnResponse($array)
     {
         ob_start();
@@ -82,9 +104,10 @@ class TodoApi
         echo json_encode($array);
         return ob_get_clean();
     }
+
     function getRecievedArray(): array
     {
         $json = file_get_contents('php://input'); // get JSON
-        return json_decode($json, true); // decode and return JSON
+        return json_decode($json, true);          // decode and return JSON
     }
 }
