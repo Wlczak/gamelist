@@ -37,25 +37,29 @@
     <div class="modal-dialog modal-fullscreen-md-down">
         <div class="modal-content">
             <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Add task</h1>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add item</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="mb-3">
-                        <label for="taskName" class="col-form-label">Task name:</label>
+                        <label for="taskName" class="col-form-label">Item name:</label>
                         <input type="text" class="form-control" id="taskName" required />
                     </div>
                     <div class="mb-3">
-                        <label for="scoreValue" class="col-form-label">Score value:</label>
+                        <label for="itemCount" class="col-form-label">Item count:</label>
+                        <input type="number" class="form-control" id="itemCount" required></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="scoreValue" class="col-form-label">Item price:</label>
                         <input type="number" class="form-control" id="scoreValue" required></input>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="addTaskButton" onclick="gtag('event', 'addTask')">Add
-                    task</button>
+                <button type="button" class="btn btn-primary" id="addItemButton" onclick="gtag('event', 'addItem')">Add
+                    item</button>
             </div>
         </div>
     </div>
