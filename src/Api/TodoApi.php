@@ -11,7 +11,7 @@ class TodoApi
 {
     # variable declaration
     public $request;
-    public $Database;
+    public Database $Database;
     public $Session;
 
     function main(RequestInterface $request, ResponseInterface $html): ResponseInterface

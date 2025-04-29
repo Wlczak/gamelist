@@ -8,18 +8,35 @@ use mysqli_sql_exception;
 class Database
 {
     # Config
+    /**
+     * @var string
+     */
     public $hostname = "gamelist-db";
+    /**
+     * @var string
+     */
     public $username = "root";
+    /**
+     * @var string
+     */
     public $password = "root";
+    /**
+     * @var string
+     */
     public $database = "gamelist";
 
     # universal SQL query
+    /**
+     * @param  $request
+     * @return array
+     */
     function apiQuery($request): array
     {
         $keys = ["query"];
         $request = $this->checkKeys($request, $keys);
-        if (!$request["status"])
+        if (!$request["status"]) {
             return $request;
+        }
 
         #function content
         try {
@@ -32,33 +49,53 @@ class Database
         return $response;
     }
 
+    /**
+     * @param  $request
+     * @return array
+     */
     function getList($request): array
     {
         $keys = ["listId"];
         $request = $this->checkKeys($request, $keys);
-        if (!$request["status"])
+        if (!$request["status"]) {
             return $request;
+        }
 
         #function content
-        $listId = $request["listId"];
+        $listName = $request["listId"];
 
         $listId = $_SESSION['uidSecret']; //overwrite
-        $result = $this->query("SELECT id,content,pointScore,status FROM `tasks` WHERE listId = $listId AND status = 0");
+
+        switch ($request["listId"]) {
+            default:
+            case 1:
+                $result = $this->query("SELECT id,content,pointScore,status FROM `tasks` WHERE listId = $listId AND status = 0");
+                break;
+            case 2:
+                $result = $this->query("SELECT id,content,pointScore,status FROM `shop` WHERE listId = $listId AND status = 0");
+                break;
+        }
+
         while ($row = $result->fetch_assoc()) {
             $response[] = $row;
         }
         if (!isset($response)) {
-            $response['msg'] = "No task found";
+            $response['msg'] = "No task/shop item found";
         }
         return $response;
     }
 
+    /**
+     * @param  $request
+     * @return array
+     */
     function removeTask($request): array
     {
         $keys = ["taskId"];
         $request = $this->checkKeys($request, $keys);
-        if (!$request["status"])
+        if (!$request["status"]) {
             return $request;
+        }
 
         $taskId = $request['taskId'];
         $this->query("DELETE FROM `tasks` WHERE id = $taskId");
@@ -66,6 +103,10 @@ class Database
         return $response;
     }
 
+    /**
+     * @param  $request
+     * @return array
+     */
     function getPoints($request): array
     {
         $uid = $_SESSION['uidSecret'];
@@ -76,13 +117,17 @@ class Database
         return $response;
     }
 
+    /**
+     * @param  $request
+     * @return array
+     */
     function doneTask($request): array
     {
         $keys = ["taskId", "taskScore"];
         $request = $this->checkKeys($request, $keys);
-        if (!$request["status"])
+        if (!$request["status"]) {
             return $request;
-
+        }
 
         $taskId = $request['taskId'];
         $taskScore = $request['taskScore'];
@@ -93,8 +138,6 @@ class Database
         if ($result->fetch_column()[0]) {
         }
 
-
-
         $sql = "UPDATE `tasks` SET `status` = '1' WHERE `tasks`.`id` = $taskId";
         $this->updateScore($uid, $taskScore);
         $this->query($sql);
@@ -102,12 +145,17 @@ class Database
         return $response;
     }
 
+    /**
+     * @param  $request
+     * @return mixed
+     */
     function createTask($request)
     {
         $keys = ["taskContent", "taskScore"];
         $request = $this->checkKeys($request, $keys);
-        if (!$request["status"])
+        if (!$request["status"]) {
             return $request;
+        }
 
         $taskContent = $request['taskContent'];
         $taskScore = $request['taskScore'];
@@ -123,6 +171,10 @@ class Database
         return $response;
     }
 
+    /**
+     * @param  $sql
+     * @return mixed
+     */
     function query($sql)
     {
         try {
@@ -136,6 +188,11 @@ class Database
         }
     }
 
+    /**
+     * @param  $request
+     * @param  $keys
+     * @return mixed
+     */
     function checkKeys($request, $keys)
     {
         foreach ($keys as $key) {
@@ -147,6 +204,12 @@ class Database
         $request["status"] = true;
         return $request;
     }
+
+    /**
+     * @param $table
+     * @param $column
+     * @param $needle
+     */
     function checkIfExists($table, $column, $needle)
     {
         $result = $this->query("SELECT COUNT(*) FROM $table WHERE $column = '$needle'");
@@ -156,21 +219,29 @@ class Database
         return false;
     }
 
-
+    /**
+     * @param $username
+     * @param $password
+     */
     function createUser($username, $password)
     {
         $this->query("INSERT INTO `users` (`id`, `username`, `password`) VALUES (NULL, '$username', '$password');");
     }
+
+    /**
+     * @param $e
+     */
     function throwDatabaseError($e)
     {
-        /*echo "<script> 
+        /*echo "<script>
         window.alert('We are currently experiencing database issues please try again later.')
         </script>";*/
         //var_dump($e);
-        $eArr = (array)$e;
+        $eArr = (array) $e;
         include "templates/dbError.php";
         die;
     }
+
     function verifyToken()
     {
         if ($_SESSION['isLoggedIn'] && isset($_COOKIE['authToken']) && $_COOKIE['authToken'] == $_SESSION['tokenSecret']) {
@@ -186,6 +257,10 @@ class Database
         return false;
     }
 
+    /**
+     * @param $uid
+     * @param $score
+     */
     function updateScore($uid, $score)
     {
 
