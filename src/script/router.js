@@ -18,7 +18,7 @@ export class Router {
             await this.swapper.fetch_body(
                 window.location.origin + "/components/" + window.location.pathname.split("/").pop()
             );
-            console.log("hi");
+            //console.log("hi");
         }
     }
 
