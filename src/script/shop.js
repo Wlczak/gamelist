@@ -2,14 +2,14 @@ import { Api } from "./api.js";
 import { Render } from "./render.js";
 
 export class Shop {
-    constructor() {
+    setup() {
         this.setupModal();
     }
 
     setupModal() {
         let api = new Api();
         let render = new Render(api);
-        document.getElementById("addItemButton").addEventListener("click", (e) => {
+        document.getElementById("addItemButton").addEventListener("click", () => {
             let score = document.getElementById("scoreValue").value;
             let content = document.getElementById("taskName").value;
             let count = document.getElementById("itemCount").value;

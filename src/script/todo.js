@@ -15,7 +15,7 @@ router.addPath(
         api.getPoints().then((response) => {
             render.changeScore(response.points);
         });
-        document.getElementById("addTaskButton").addEventListener("click", (e) => {
+        document.getElementById("addTaskButton").addEventListener("click", () => {
             var score = document.getElementById("scoreValue").value;
             var content = document.getElementById("taskName").value;
 
@@ -39,6 +39,7 @@ router.addPath(
 
 router.addPath("/shop", () => {
    let shop = new Shop();
+   shop.setup();
 }, true, "Shop");
 
 router.run();

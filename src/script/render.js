@@ -57,7 +57,7 @@ export class Render {
 
         deleteButton.type = "button";
         deleteButton.className = "btn btn-danger";
-        deleteButton.addEventListener("click", (e) => {
+        deleteButton.addEventListener("click", () => {
             this.api.removeTask(id).then((result) => {
                 if (result.status) {
                     gtag("event", "task_deleted")
