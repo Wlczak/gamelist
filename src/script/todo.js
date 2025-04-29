@@ -1,6 +1,7 @@
 import { Api } from "./api.js";
 import { Render } from "./render.js";
 import { Router } from "./router.js";
+import { Shop } from "./shop.js";
 //declaration
 var api = new Api();
 var render = new Render(api);
@@ -36,6 +37,8 @@ router.addPath(
     "Home"
 );
 
-router.addPath("/shop", () => {}, true, "Shop");
+router.addPath("/shop", () => {
+   let shop = new Shop();
+}, true, "Shop");
 
 router.run();
