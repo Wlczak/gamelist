@@ -13,7 +13,7 @@ router.addPath(
         render.refreshTasks();
 
         api.getPoints().then((response) => {
-            render.changeScore(response.points);
+            render.setScore(response.points);
         });
         document.getElementById("addTaskButton").addEventListener("click", () => {
             var score = document.getElementById("scoreValue").value;
@@ -37,9 +37,14 @@ router.addPath(
     "Home"
 );
 
-router.addPath("/shop", () => {
-   let shop = new Shop();
-   shop.setup();
-}, true, "Shop");
+router.addPath(
+    "/shop",
+    () => {
+        let shop = new Shop();
+        shop.setup();
+    },
+    true,
+    "Shop"
+);
 
 router.run();

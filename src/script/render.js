@@ -209,7 +209,7 @@ export class Render {
         const task = document.getElementById(id);
         let count = task.getElementsByClassName("itemCount")[0];
 
-this.api
+        this.api;
 
         if (count.textContent > 1) {
             this.changeScore(pointScore);
@@ -264,6 +264,14 @@ this.api
                 }
             }
         }
+    }
+
+    setScore(score) {
+        const originalPoints = document.getElementById("pointCounter").innerHTML;
+
+        const change = score - originalPoints;
+
+        this.changeScore(change);
     }
 
     delay(ms) {

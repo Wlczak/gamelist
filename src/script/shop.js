@@ -3,8 +3,13 @@ import { Render } from "./render.js";
 
 export class Shop {
     setup() {
+        let api = new Api();
+        let render = new Render(api);
         this.setupModal();
-        new Render(new Api).refreshItems();
+        api.getPoints().then((response) => {
+            render.setScore(response.points);
+        });
+        new Render(new Api()).refreshItems();
     }
 
     setupModal() {
