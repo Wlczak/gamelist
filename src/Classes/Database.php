@@ -9,22 +9,10 @@ use mysqli_sql_exception;
 class Database
 {
     # Config
-    /**
-     * @var string
-     */
-    public $hostname = "gamelist-db";
-    /**
-     * @var string
-     */
-    public $username = "root";
-    /**
-     * @var string
-     */
-    public $password = "root";
-    /**
-     * @var string
-     */
-    public $database = "gamelist";
+    public string $hostname = "gamelist-db";
+    public string $username = "root";
+    public string $password = "root";
+    public string $database = "gamelist";
 
     # universal SQL query
     /**

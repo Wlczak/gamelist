@@ -4,8 +4,15 @@ namespace Gamelist\Classes;
 
 class Session
 {
+    /**
+     * @return array{authError:string,authMsg:bool,authToken:string,cookieTest:string}
+     */
     function getAuthError(): array
     {
+        /**
+         * @var array{authError:string,authMsg:bool,authToken:string,cookieTest:string} $response
+         */
+        $response = [];
         $response["authError"] = "";
         $response["authMsg"] = false;
 

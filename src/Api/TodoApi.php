@@ -27,23 +27,22 @@ class TodoApi
      */
     function main(RequestInterface $request, ResponseInterface $html): ResponseInterface
     {
-        $this->request = $this->getRecievedArray(); // set array
         $this->Database = new Database;
         $this->Session = new Session;
 
-        $response = $this->handleRequest($this->request);
+        $response = $this->handleRequest($request);
 
         $html->getBody()->write($this->returnResponse($response)); // Set the html body
         return $html;
     }
 
     /**
-     * @param  $request
      * @return array
      */
-    function handleRequest($request): array
+    function handleRequest(): array
     {
-        if (!isset($request) || !key_exists("requestType", $request)) {
+        $request = $this->getRecievedArray();
+        if (!key_exists("requestType", $request)) {
             return $response = [
                 "error" => "[requestType] not defined"
             ];
