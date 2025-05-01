@@ -80,7 +80,7 @@ class Database
                 $result = $this->query("SELECT id,content,pointScore,status FROM `tasks` WHERE listId = $listId AND status = 0");
                 break;
             case 2:
-                $result = $this->query("SELECT id,content,pointScore,status FROM `shop` WHERE listId = $listId AND status = 0");
+                $result = $this->query("SELECT id,content,pointScore,count,status FROM `shop` WHERE listId = $listId AND status = 0");
                 break;
         }
 

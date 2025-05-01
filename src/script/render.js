@@ -122,65 +122,86 @@ export class Render {
     }
 
     addItem(id, content, pointScore, count) {
-        let taskParent = document.getElementById("itemParent");
-        let taskDiv = document.createElement("div");
-        let contentDiv = document.createElement("div");
-        let contentTag = document.createElement("h4");
-        let buttonDiv = document.createElement("div");
-        let doneButton = document.createElement("button");
-        let deleteButton = document.createElement("button");
-
+        const taskParent = document.getElementById("itemParent");
+        const taskDiv = document.createElement("div");
         taskDiv.className = "row border justify-content-between";
-        taskDiv.setAttribute("style", "transition: margin-top 1s;");
         taskDiv.id = id;
-        //taskDiv.innerHTML =
-        // "<div class='col'><h2>task</h2></div><div class='btn-group col-md-5 mt-1 mb-1'><button type='button' class='btn btn-success'>Done</button><button type='button' class='btn btn-danger'>Delete</button></div>";
 
-        //content
-        contentDiv.className = "col d-flex align-items-center";
-        contentTag.className = "";
-        contentTag.innerHTML = content;
-        contentDiv.appendChild(contentTag);
+        // Content column
+        const contentCol = document.createElement("div");
+        contentCol.className = "col";
+        const innerDiv = document.createElement("div");
+        const heading = document.createElement("h2");
+        const nameSpan = document.createElement("span");
+        nameSpan.className = "itemName";
+        nameSpan.textContent = content;
+        const countSpan = document.createElement("span");
+        countSpan.className = "itemCount";
+        countSpan.textContent = count;
+        heading.appendChild(nameSpan);
+        heading.appendChild(document.createTextNode(" x "));
+        heading.appendChild(countSpan);
+        innerDiv.appendChild(heading);
+        contentCol.appendChild(innerDiv);
 
-        //buttons
+        // Edit icon column
+        const editCol = document.createElement("div");
+        editCol.className = "col-1";
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("class", "bi");
+        svg.setAttribute("width", "32");
+        svg.setAttribute("height", "32");
+        svg.setAttribute("fill", "currentColor");
+        svg.setAttribute("style", "margin-top: 5px;");
+        const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+        use.setAttributeNS(
+            "http://www.w3.org/1999/xlink",
+            "xlink:href",
+            "vendor/twbs/bootstrap-icons/bootstrap-icons.svg#pencil"
+        );
+        svg.appendChild(use);
+        editCol.appendChild(svg);
+
+        // Buttons column
+        const buttonDiv = document.createElement("div");
         buttonDiv.className = "btn-group col-md-5 mt-1 mb-1";
-        doneButton.type = "button";
-        doneButton.className = "btn btn-success";
-        doneButton.innerHTML = "+" + pointScore;
-        doneButton.value = pointScore;
-        doneButton.addEventListener("click", (e) => {
-            var taskScore = e.target.value;
-            this.api.doneTask(id, taskScore).then((result) => {
+
+        const buyButton = document.createElement("button");
+        buyButton.type = "button";
+        buyButton.className = "btn btn-success";
+        buyButton.textContent = "Buy";
+        buyButton.addEventListener("click", () => {
+            this.api.doneTask(id, pointScore).then((result) => {
                 if (result.status) {
-                    gtag("event", "task_done");
-                    this.doneTask(id, taskScore);
+                    gtag("event", "item_bought");
+                    this.doneTask(id, pointScore);
                 } else {
                     location.reload();
                 }
             });
         });
-        buttonDiv.appendChild(doneButton);
+        buttonDiv.appendChild(buyButton);
 
+        const deleteButton = document.createElement("button");
         deleteButton.type = "button";
         deleteButton.className = "btn btn-danger";
+        deleteButton.textContent = "Delete";
         deleteButton.addEventListener("click", () => {
             this.api.removeTask(id).then((result) => {
                 if (result.status) {
-                    gtag("event", "task_deleted");
+                    gtag("event", "item_deleted");
                     this.removeTask(id);
                 } else {
                     location.reload();
                 }
             });
         });
-        deleteButton.innerHTML = "Delete";
         buttonDiv.appendChild(deleteButton);
 
-        //append
-        taskDiv.appendChild(contentDiv);
+        taskDiv.appendChild(contentCol);
+        taskDiv.appendChild(editCol);
         taskDiv.appendChild(buttonDiv);
-
-        taskParent.append(taskDiv);
+        taskParent.appendChild(taskDiv);
     }
 
     async changeScore(score) {
