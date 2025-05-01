@@ -63,11 +63,11 @@ export class Api {
         return this.apiQuery(request);
     }
 
-    createItem(taskContent, taskScore, itemCount) {
+    createItem(itemContent, itemScore, itemCount) {
         var request = {
             requestType: "createItem",
-            taskContent: taskContent,
-            taskScore: taskScore,
+            itemContent: itemContent,
+            itemScore: itemScore,
             itemCount: itemCount,
         };
         return this.apiQuery(request);

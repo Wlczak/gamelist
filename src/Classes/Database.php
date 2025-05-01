@@ -23,6 +23,14 @@ class Database
     /**
      * @var string
      */
+    /**
+     * @param  $request
+     * @return mixed
+     */
+    /**
+     * @param $request
+     * @return mixed
+     */
     public $database = "gamelist";
 
     # universal SQL query
@@ -162,6 +170,30 @@ class Database
         $uid = $_SESSION['uidSecret'];
 
         $sql = "INSERT INTO `tasks` (`id`, `listId`, `uid`, `content`, `pointScore`, `status`) VALUES (NULL, '$uid', '$uid', '$taskContent', '$taskScore', '0');";
+        $result = $this->query($sql);
+
+        if ($result === false) {
+            return $response['error'] = "Sql connection failed.";
+        }
+        $response["msg"] = "Task created succesfully";
+        return $response;
+    }
+
+    function createItem($request)
+    {
+        $keys = ["itemContent", "itemScore"];
+        $request = $this->checkKeys($request, $keys);
+        if (!$request["status"]) {
+            return $request;
+        }
+
+        $itemContent = $request['itemContent'];
+        $itemScore = $request['itemScore'];
+        $itemCount = $request['itemCount'];
+
+        $uid = $_SESSION['uidSecret'];
+
+        $sql = "INSERT INTO `shop` (`id`, `listId`, `uid`, `content`, `pointScore`, `count` , `status`) VALUES (NULL, '$uid', '$uid', '$itemContent', '$itemScore', '$itemCount', '0');";
         $result = $this->query($sql);
 
         if ($result === false) {

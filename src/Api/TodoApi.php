@@ -80,6 +80,7 @@ class TodoApi
                                 break;
                             case "createItem":
                                 $response = $this->Database->createItem($request);
+                                break;
                             default:
                                 $response["msg"] = "given requestType is undefined: \"" . $this->request['requestType'] . "\"";
                                 $response["help"] = "Get help with the api at: https://github.com/Wlczak/gamelist/wiki/Api-backend";
