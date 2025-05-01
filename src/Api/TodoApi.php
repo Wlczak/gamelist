@@ -30,17 +30,16 @@ class TodoApi
         $this->Database = new Database;
         $this->Session = new Session;
 
-        $response = $this->handleRequest();
+        $response = $this->handleRequest($request);
 
         $html->getBody()->write($this->returnResponse($response)); // Set the html body
         return $html;
     }
 
     /**
-     * @param  $request
      * @return array
      */
-    function handleRequest($request): array
+    function handleRequest(): array
     {
         $request = $this->getRecievedArray();
         if (!key_exists("requestType", $request)) {
