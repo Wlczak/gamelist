@@ -46,7 +46,7 @@ export class Render {
             var taskScore = e.target.value;
             this.api.doneTask(id, taskScore).then((result) => {
                 if (result.status) {
-                    gtag("event", "task_done")
+                    gtag("event", "task_done");
                     this.doneTask(id, taskScore);
                 } else {
                     location.reload();
@@ -57,10 +57,10 @@ export class Render {
 
         deleteButton.type = "button";
         deleteButton.className = "btn btn-danger";
-        deleteButton.addEventListener("click", (e) => {
+        deleteButton.addEventListener("click", () => {
             this.api.removeTask(id).then((result) => {
                 if (result.status) {
-                    gtag("event", "task_deleted")
+                    gtag("event", "task_deleted");
                     this.removeTask(id);
                 } else {
                     location.reload();
@@ -102,8 +102,134 @@ export class Render {
             this.changeScore(taskScore);
         };
     }
-    async changeScore(score) {
 
+    refreshItems() {
+        this.api.getList(2).then((response) => {
+            document.getElementById("itemParent").innerHTML = "";
+            if (typeof response[0] == "object") {
+                response.forEach((itemData) => {
+                    this.addItem(
+                        itemData["id"],
+                        itemData["content"],
+                        itemData["pointScore"],
+                        itemData["count"]
+                    );
+                });
+            } else {
+                //error has occured
+            }
+        });
+    }
+
+    addItem(id, content, pointScore, count) {
+        const taskParent = document.getElementById("itemParent");
+        const taskDiv = document.createElement("div");
+        taskDiv.className = "row border justify-content-between";
+        taskDiv.id = id;
+
+        // Content column
+        const contentCol = document.createElement("div");
+        contentCol.className = "col";
+        const innerDiv = document.createElement("div");
+        const heading = document.createElement("h2");
+        const nameSpan = document.createElement("span");
+        nameSpan.className = "itemName";
+        nameSpan.textContent = content;
+        const countSpan = document.createElement("span");
+        countSpan.className = "itemCount";
+        countSpan.textContent = count;
+        heading.appendChild(nameSpan);
+        heading.appendChild(document.createTextNode(" x "));
+        heading.appendChild(countSpan);
+        innerDiv.appendChild(heading);
+        contentCol.appendChild(innerDiv);
+
+        // Edit icon column
+        const editCol = document.createElement("div");
+        editCol.className = "col-1";
+        const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("class", "bi");
+        svg.setAttribute("width", "32");
+        svg.setAttribute("height", "32");
+        svg.setAttribute("fill", "currentColor");
+        svg.setAttribute("style", "margin-top: 5px;");
+        const use = document.createElementNS("http://www.w3.org/2000/svg", "use");
+        use.setAttributeNS(
+            "http://www.w3.org/1999/xlink",
+            "xlink:href",
+            "vendor/twbs/bootstrap-icons/bootstrap-icons.svg#pencil"
+        );
+        svg.appendChild(use);
+        editCol.appendChild(svg);
+
+        // Buttons column
+        const buttonDiv = document.createElement("div");
+        buttonDiv.className = "btn-group col-md-5 mt-1 mb-1";
+
+        const buyButton = document.createElement("button");
+        buyButton.type = "button";
+        buyButton.className = "btn btn-success";
+        buyButton.textContent = "$" + pointScore;
+        buyButton.value = pointScore;
+        buyButton.addEventListener("click", () => {
+            this.api.boughtItem(id, pointScore).then((result) => {
+                if (result.status) {
+                    gtag("event", "item_bought");
+                    this.boughtItem(id, pointScore * -1);
+                } else {
+                    //location.reload();
+                }
+            });
+        });
+        buttonDiv.appendChild(buyButton);
+
+        const deleteButton = document.createElement("button");
+        deleteButton.type = "button";
+        deleteButton.className = "btn btn-danger";
+        deleteButton.textContent = "Delete";
+        deleteButton.addEventListener("click", () => {
+            this.api.removeTask(id).then((result) => {
+                if (result.status) {
+                    gtag("event", "item_deleted");
+                    this.removeTask(id);
+                } else {
+                    location.reload();
+                }
+            });
+        });
+        buttonDiv.appendChild(deleteButton);
+
+        taskDiv.appendChild(contentCol);
+        taskDiv.appendChild(editCol);
+        taskDiv.appendChild(buttonDiv);
+        taskParent.appendChild(taskDiv);
+    }
+
+    boughtItem(id, pointScore) {
+        const task = document.getElementById(id);
+        let count = task.getElementsByClassName("itemCount")[0];
+
+        this.api;
+
+        if (count.textContent > 1) {
+            this.changeScore(pointScore);
+            count.textContent = count.textContent - 1;
+            // console.log(count)
+        } else {
+            task.animate(
+                [
+                    { scale: 1, opacity: 1 },
+                    { scale: 10, opacity: 0 },
+                ],
+                { duration: 250, fill: "forwards", easing: "ease-in" }
+            ).onfinish = () => {
+                task.remove();
+                this.changeScore(pointScore);
+            };
+        }
+    }
+
+    async changeScore(score) {
         var i = 1;
         var pointCounter = document.getElementById("pointCounter");
         var counter = 0;
@@ -112,7 +238,7 @@ export class Render {
             add = add * 10;
         }
         var time = 1000 / score; //time in ms
-        
+
         if (score >= 0) {
             while (i <= score) {
                 if ((score - i) / 10 < add && add > 1) {
@@ -138,6 +264,14 @@ export class Render {
                 }
             }
         }
+    }
+
+    setScore(score) {
+        const originalPoints = document.getElementById("pointCounter").innerHTML;
+
+        const change = score - originalPoints;
+
+        this.changeScore(change);
     }
 
     delay(ms) {

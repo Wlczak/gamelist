@@ -1,6 +1,6 @@
 parameters:
     ignoreErrors:
-    level: 1
+    level: 5
     paths:
         - src
     bootstrapFiles:
