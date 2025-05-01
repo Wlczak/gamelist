@@ -72,4 +72,12 @@ export class Api {
         };
         return this.apiQuery(request);
     }
+    boughtItem(id, pointScore) {
+        var request = {
+            requestType: "boughtItem",
+            itemId: id,
+            pointScore: pointScore,
+        };
+        return this.apiQuery(request);
+    }
 }

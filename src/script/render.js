@@ -169,14 +169,15 @@ export class Render {
         const buyButton = document.createElement("button");
         buyButton.type = "button";
         buyButton.className = "btn btn-success";
-        buyButton.textContent = "Buy";
+        buyButton.textContent = "$" + pointScore;
+        buyButton.value = pointScore;
         buyButton.addEventListener("click", () => {
-            this.api.doneTask(id, pointScore).then((result) => {
+            this.api.boughtItem(id, pointScore).then((result) => {
                 if (result.status) {
                     gtag("event", "item_bought");
-                    this.doneTask(id, pointScore);
+                    this.boughtItem(id, pointScore * -1);
                 } else {
-                    location.reload();
+                    //location.reload();
                 }
             });
         });
@@ -202,6 +203,30 @@ export class Render {
         taskDiv.appendChild(editCol);
         taskDiv.appendChild(buttonDiv);
         taskParent.appendChild(taskDiv);
+    }
+
+    boughtItem(id, pointScore) {
+        const task = document.getElementById(id);
+        let count = task.getElementsByClassName("itemCount")[0];
+
+this.api
+
+        if (count.textContent > 1) {
+            this.changeScore(pointScore);
+            count.textContent = count.textContent - 1;
+            // console.log(count)
+        } else {
+            task.animate(
+                [
+                    { scale: 1, opacity: 1 },
+                    { scale: 10, opacity: 0 },
+                ],
+                { duration: 250, fill: "forwards", easing: "ease-in" }
+            ).onfinish = () => {
+                task.remove();
+                this.changeScore(pointScore);
+            };
+        }
     }
 
     async changeScore(score) {
