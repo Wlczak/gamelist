@@ -4,6 +4,7 @@ import { Render } from "./render.js";
 export class Shop {
     setup() {
         this.setupModal();
+        new Render(new Api).refreshItems();
     }
 
     setupModal() {
