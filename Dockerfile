@@ -24,4 +24,8 @@ EXPOSE 9000
 #ENV COMPOSER_HOME=/app/vendor/composer
 #ENV COMPOSER_CACHE_DIR=/app/vendor/composer/cache
 
-CMD ["bash", "-c", "composer install --no-dev --no-scripts && apache2-foreground" ]
+# prod
+#CMD ["bash", "-c", "composer install --no-dev --no-scripts && apache2-foreground" ]
+
+# dev
+CMD ["bash", "-c", "composer install && apache2-foreground" ] 

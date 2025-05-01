@@ -8,7 +8,7 @@ class Token
 {
     public function generateSessionToken()
     {
-        return hash("snefru256", $this->generateRandomString(pow("2", random_int(16, 24))));
+        return hash("snefru256", $this->generateRandomString(pow(2, random_int(16, 24))));
     }
     private function generateRandomString($length)
     {

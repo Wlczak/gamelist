@@ -1,0 +1,66 @@
+<div class="row row-cols-1 justify-content-center mt-5">
+    <div class="col-md-6 border">
+        <div class="row border">
+            <h1>Item shop</h1>
+            <button class="btn btn-primary d-flex justify-content-center align-items-center" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">
+                <b>Add item</b>
+                <svg class="bi" width="32" height="32" fill="currentColor">
+                    <use xlink:href="vendor/twbs/bootstrap-icons/bootstrap-icons.svg#plus" />
+                </svg>
+            </button>
+        </div>
+        <div id="itemParent"></div>
+        <!-- <div class="row border justify-content-between">
+
+            <div class="col">
+                <div>
+                    <h2>
+                        <span class="itemName">Item</span> x <span class="itemCount">0</span>
+                    </h2>
+                </div>
+
+            </div>
+            <div class="col-1">
+                <svg class="bi" width="32" height="32" fill="currentColor" style="margin-top: 5px;">
+                    <use xlink:href="vendor/twbs/bootstrap-icons/bootstrap-icons.svg#pencil" />
+                </svg>
+            </div>
+            <div class="btn-group col-md-5 mt-1 mb-1">
+                <button type="button" class="btn btn-success">Buy</button>
+                <button type="button" class="btn btn-danger">Delete</button>
+            </div>
+        </div> -->
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="newItemModal" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-md-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Add item</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="itemName" class="col-form-label">Item name:</label>
+                        <input type="text" class="form-control" id="itemName" required />
+                    </div>
+                    <div class="mb-3">
+                        <label for="itemCount" class="col-form-label">Item count:</label>
+                        <input type="number" class="form-control" id="itemCount" required></input>
+                    </div>
+                    <div class="mb-3">
+                        <label for="scoreValue" class="col-form-label">Item price:</label>
+                        <input type="number" class="form-control" id="scoreValue" required></input>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="addItemButton" onclick="gtag('event', 'addItem')">Add
+                    item</button>
+            </div>
+        </div>
+    </div>
+</div>

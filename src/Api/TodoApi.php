@@ -11,12 +11,20 @@ class TodoApi
 {
     # variable declaration
     /**
-     * @var array{requestType:string}
+     * @var mixed
      */
-    public array $request;
+    public $request;
     public Database $Database;
-    public Session $Session;
+    /**
+     * @var Session
+     */
+    public $Session;
 
+    /**
+     * @param  RequestInterface    $request
+     * @param  ResponseInterface   $html
+     * @return ResponseInterface
+     */
     function main(RequestInterface $request, ResponseInterface $html): ResponseInterface
     {
         $this->Database = new Database;
@@ -29,9 +37,10 @@ class TodoApi
     }
 
     /**
-     * @return array{error:string,status:bool}
+     * @param  $request
+     * @return array
      */
-    function handleRequest(): array
+    function handleRequest($request): array
     {
         $request = $this->getRecievedArray();
         if (!key_exists("requestType", $request)) {
@@ -69,6 +78,12 @@ class TodoApi
                             case "createTask":
                                 $response = $this->Database->createTask($request);
                                 break;
+                            case "createItem":
+                                $response = $this->Database->createItem($request);
+                                break;
+                            case "boughtItem":
+                                $response = $this->Database->boughtItem($request);
+                                break;
                             default:
                                 $response["msg"] = "given requestType is undefined: \"" . $this->request['requestType'] . "\"";
                                 $response["help"] = "Get help with the api at: https://github.com/Wlczak/gamelist/wiki/Api-backend";
@@ -97,10 +112,6 @@ class TodoApi
     function getRecievedArray(): array
     {
         $json = file_get_contents('php://input'); // get JSON
-        $array = json_decode($json, true);
-        if (!key_exists("requestType", $array)) {
-            return ["error" => "[requestType] not defined"];
-        }
-        return json_decode($json, true); // decode and return JSON
+        return json_decode($json, true);          // decode and return JSON
     }
 }
