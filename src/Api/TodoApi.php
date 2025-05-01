@@ -21,8 +21,8 @@ class TodoApi
     public $Session;
 
     /**
-     * @param RequestInterface $request
-     * @param ResponseInterface $html
+     * @param  RequestInterface    $request
+     * @param  ResponseInterface   $html
      * @return ResponseInterface
      */
     function main(RequestInterface $request, ResponseInterface $html): ResponseInterface
@@ -38,7 +38,7 @@ class TodoApi
     }
 
     /**
-     * @param $request
+     * @param  $request
      * @return array
      */
     function handleRequest($request): array
@@ -80,6 +80,9 @@ class TodoApi
                                 break;
                             case "createItem":
                                 $response = $this->Database->createItem($request);
+                                break;
+                            case "boughtItem":
+                                $response = $this->Database->boughtItem($request);
                                 break;
                             default:
                                 $response["msg"] = "given requestType is undefined: \"" . $this->request['requestType'] . "\"";

@@ -3,6 +3,7 @@
 namespace Gamelist\Classes;
 
 use mysqli;
+use mysqli_result;
 use mysqli_sql_exception;
 
 class Database
@@ -22,14 +23,6 @@ class Database
     public $password = "root";
     /**
      * @var string
-     */
-    /**
-     * @param  $request
-     * @return mixed
-     */
-    /**
-     * @param $request
-     * @return mixed
      */
     public $database = "gamelist";
 
@@ -179,6 +172,10 @@ class Database
         return $response;
     }
 
+    /**
+     * @param  $request
+     * @return mixed
+     */
     function createItem($request)
     {
         $keys = ["itemContent", "itemScore"];
@@ -204,19 +201,60 @@ class Database
     }
 
     /**
-     * @param  $sql
+     * @param  $request
      * @return mixed
      */
-    function query($sql)
+    function boughtItem($request)
+    {
+        $keys = ["itemId"];
+        $request = $this->checkKeys($request, $keys);
+        if (!$request["status"]) {
+            return $request;
+        }
+
+        $itemId = $request['itemId'];
+
+        $sql = "SELECT `count` FROM `shop` WHERE `id` = $itemId";
+
+        $result = $this->query($sql);
+
+        if ($result == false) {
+            return $response['error'] = "Sql connection failed.";
+        }
+
+        $count = $result->fetch_row()[0];
+
+        if ($count <= 1) {
+            $sql = "UPDATE `shop` SET `status` = '1' WHERE `shop`.`id` = $itemId";
+            $this->query($sql);
+            $sql = "UPDATE `shop` SET `count` = '0' WHERE `id` = $itemId";
+            $this->query($sql);
+        } else {
+            $count--;
+            $sql = "UPDATE `shop` SET `count` = '$count' WHERE `shop`.`id` = $itemId";
+            $this->query($sql);
+        }
+
+        $response["status"] = true;
+        return $response;
+    }
+
+    /**
+     * @param  $sql
+     * @return mysqli_result
+     */
+    function query($sql): mysqli_result | bool
     {
         try {
             $conn = new mysqli($this->hostname, $this->username, $this->password, $this->database);
             $result = $conn->query($sql);
             $conn->close();
+
             return $result;
 
         } catch (mysqli_sql_exception $e) {
             $this->throwDatabaseError($e);
+            return false;
         }
     }
 
