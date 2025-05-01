@@ -206,13 +206,14 @@ class Database
      */
     function boughtItem($request)
     {
-        $keys = ["itemId"];
+        $keys = ["itemId", "pointScore"];
         $request = $this->checkKeys($request, $keys);
         if (!$request["status"]) {
             return $request;
         }
 
         $itemId = $request['itemId'];
+        $pointScore = $request['pointScore'];
 
         $sql = "SELECT `count` FROM `shop` WHERE `id` = $itemId";
 
@@ -234,6 +235,8 @@ class Database
             $sql = "UPDATE `shop` SET `count` = '$count' WHERE `shop`.`id` = $itemId";
             $this->query($sql);
         }
+
+        $this->updateScore($_SESSION['uidSecret'], $pointScore * -1);
 
         $response["status"] = true;
         return $response;
@@ -333,7 +336,6 @@ class Database
      */
     function updateScore($uid, $score)
     {
-
         $sql = "UPDATE `users` SET `points` = `points`+$score WHERE `users`.`id` = $uid";
         $this->query($sql);
     }
