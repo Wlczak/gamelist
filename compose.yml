@@ -2,6 +2,8 @@ services:
     gamelist:
         container_name: gamelist-app
         image: wlczak/gamelist:latest
+        labels:
+            - com.centurylinklabs.watchtower.enable=true
         ports:
             - "9000:80"
         volumes:
