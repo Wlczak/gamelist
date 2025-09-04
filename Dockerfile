@@ -1,4 +1,4 @@
-FROM php:8.4.6-apache-bullseye
+FROM php:8.4-apache
 
 # install Composer
 RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
