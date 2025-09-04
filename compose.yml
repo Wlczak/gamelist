@@ -1,9 +1,9 @@
 services:
     gamelist:
         container_name: gamelist-app
-        build:
-            context: .
-            dockerfile: Dockerfile
+        image: wlczak/gamelist:latest
+        labels:
+            - com.centurylinklabs.watchtower.enable=true
         ports:
             - "9000:80"
         volumes:
