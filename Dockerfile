@@ -3,8 +3,6 @@ FROM php:8.4.6-apache-bullseye
 # install Composer
 RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY ./ /var/www/html
-
 # install dependencies
 WORKDIR /var/www/html
 #COPY composer.json ./
@@ -25,6 +23,8 @@ EXPOSE 9000
 # set environment variables
 #ENV COMPOSER_HOME=/app/vendor/composer
 #ENV COMPOSER_CACHE_DIR=/app/vendor/composer/cache
+
+COPY ./ /var/www/html
 
 # prod
 #CMD ["bash", "-c", "composer install --no-dev --no-scripts && apache2-foreground" ]
