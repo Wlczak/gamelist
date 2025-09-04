@@ -3,6 +3,8 @@ FROM php:8.4.6-apache-bullseye
 # install Composer
 RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+COPY ./ /var/www/html
+
 # install dependencies
 WORKDIR /var/www/html
 #COPY composer.json ./
