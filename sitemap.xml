@@ -8,13 +8,13 @@
 
 
 <url>
-  <loc>https://wlczak.vlastas.cc/gamelist/login</loc>
-  <lastmod>2024-07-23T14:57:22+00:00</lastmod>
+  <loc>https://gamelist.vlastas.cc/login</loc>
+  <lastmod>2025-09-13T13:13:22+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
-  <loc>https://wlczak.vlastas.cc/gamelist/register</loc>
-  <lastmod>2024-07-23T14:57:22+00:00</lastmod>
+  <loc>https://gamelist.vlastas.cc/register</loc>
+  <lastmod>2025-09-13T13:13:22+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 
