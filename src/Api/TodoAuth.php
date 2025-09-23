@@ -19,6 +19,7 @@ class TodoAuth
         //echo "<title>Loading...</title>";
         return $this->handleAuthRequest($html);
     }
+
     function handleAuthRequest(ResponseInterface $html)
     {
         switch ($_POST['type']) {
@@ -37,11 +38,12 @@ class TodoAuth
         }
         return $html;
     }
+
     function login(ResponseInterface $html)
     {
         $username = $_POST['username'];
         $password = $_POST['password'];
-        $result = $this->Database->query("SELECT password , id FROM users WHERE username = '$username'")->fetch_assoc();;
+        $result = $this->Database->query("SELECT password , id FROM users WHERE username = '$username'")->fetch_assoc();
         $password_hash = $result["password"];
         $uid = $result["id"];
         $_SESSION['uidSecret'] = $uid;
@@ -66,6 +68,7 @@ class TodoAuth
             return $html->withHeader('Location', BASE_URL ?: "/")->withStatus(302);
         }
     }
+
     function register($html)
     {
         #variable declaration
@@ -90,6 +93,7 @@ class TodoAuth
         $_SESSION['authMsg'] = "Registered succesfully.";
         return $html->withHeader('Location', 'login')->withStatus(302);
     }
+
     function test(RequestInterface $request, ResponseInterface $html): ResponseInterface
     {
         ob_start();
