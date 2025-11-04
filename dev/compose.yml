@@ -1,14 +1,14 @@
 services:
     gamelist:
         container_name: gamelist-app
-        image: wlczak/gamelist:latest
+        build:
+            context: ../
+            dockerfile: Dockerfile
         init: true
-        labels:
-            - com.centurylinklabs.watchtower.enable=true
         ports:
             - "9000:80"
-        # volumes:
-            # - ./:/var/www/html
+        volumes:
+            - ../:/var/www/html
         depends_on:
             - gamelist-db
         environment:
@@ -20,7 +20,7 @@ services:
         image: mariadb
         volumes:
             - gamelist-data:/var/lib/mysql
-            - ./db-structure:/docker-entrypoint-initdb.d/
+            - ../db-structure:/docker-entrypoint-initdb.d/
         # restart: always
         environment:
             MYSQL_ROOT_PASSWORD: root

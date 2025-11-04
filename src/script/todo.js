@@ -8,7 +8,7 @@ var render = new Render(api);
 var router = new Router();
 
 router.addPath(
-    "/",
+    "/todo",
     () => {
         render.refreshTasks();
 
