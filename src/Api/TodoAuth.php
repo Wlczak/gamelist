@@ -65,7 +65,7 @@ class TodoAuth
             $_SESSION['isLoggedIn'] = true;
             // @phpstan-ignore ternary.alwaysTrue
             // @phpstan-ignore ternary.alwaysFalse
-            return $html->withHeader('Location', BASE_URL ?: "/todo")->withStatus(302);
+            return $html->withHeader('Location', BASE_URL ?: "/login")->withStatus(302);
         }
     }
 
