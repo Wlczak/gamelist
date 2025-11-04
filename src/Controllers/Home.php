@@ -10,7 +10,7 @@ class Home
     public function view(Request $request, Response $response): Response
     {
         ob_start();
-        include "templates/index.html";
+        include "templates/home.html";
         $html = ob_get_clean();
         $response->getBody()->write($html);
         return $response;

@@ -12,7 +12,7 @@ export class Router {
     }
 
     async fetch_body() {
-        if (window.location.pathname == "/") {
+        if (window.location.pathname == "/todo") {
             await this.swapper.fetch_body(window.location.origin + "/components/todo");
         } else {
             await this.swapper.fetch_body(

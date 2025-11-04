@@ -27,6 +27,8 @@ $app->setBasePath(BASE_URL);
 
 $app->get('/', [Home::class, 'view']);
 
+$app->get('/todo', [Todo::class, 'view']);
+
 $app->get('/shop', [Todo::class, 'view']);
 
 $app->get('/login', [Todo::class, 'login']);

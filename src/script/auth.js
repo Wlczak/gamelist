@@ -16,7 +16,7 @@ api.getAuthError().then((response) => {
     if (response.authToken != undefined && response.authToken != null) {
         document.cookie = "authToken=" + response.authToken;
         setTimeout(() => {
-            window.location.replace(window.APP_CONFIG.appUrl+"/");
+            window.location.replace(window.APP_CONFIG.appUrl+"/todo");
         }, 750);
     }
 });
