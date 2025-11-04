@@ -2,54 +2,322 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gamelist — Gamified To-Do</title>
+    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
     <meta name="google-site-verification" content="XRS-DlqvCSDD76UDmBelZK-oG16XL20KyEUnDFdgCo4" />
-    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-WYTVNWXJG6"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-
         gtag('config', 'G-WYTVNWXJG6');
-
-        gtag('event', 'page_view', {
-            'origin': window.location.origin
-        })
+        gtag('event', 'page_view', { origin: window.location.origin });
     </script>
-    <script>function test() {
-            window.alert("hi")
+    <style>
+        :root {
+            --hero-start: #6f42c1;
+            --hero-end: #0dcaf0
         }
-    </script>
-    <script type="module" src="src/script/todo.js"></script>
-    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
-    <title>To-Do</title>
+
+        body {
+            font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, var(--hero-start), var(--hero-end));
+            color: #fff;
+            border-radius: .75rem;
+            padding: 4rem 2rem;
+            margin-top: 1.25rem;
+            box-shadow: 0 6px 30px rgba(11, 14, 28, 0.18);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: .75rem;
+            display: grid;
+            place-items: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            background: rgba(255, 255, 255, 0.12);
+            color: white;
+        }
+
+        .reward-img {
+            height: 88px;
+            object-fit: cover;
+            border-radius: .5rem
+        }
+
+        .points-pill {
+            background: rgba(255, 255, 255, 0.08);
+            padding: .35rem .6rem;
+            border-radius: 999px;
+            color: #fff;
+            font-weight: 700
+        }
+
+        @media (min-width: 992px) {
+            .hero {
+                padding: 5rem 3rem
+            }
+        }
+    </style>
 </head>
 
 <body data-bs-theme="light">
-    <div class="container">
-        <nav class="navbar bg-body-tertiary">
-            <div class="container-fluid">
-                <h1 class="ms-3">Gamelist</h1>
-                
-                <div class="btn-group" id="nav-buttons" role="group" aria-label="Basic example">
-                    <!-- <button type="button" class="btn btn-primary" onclick="location.href='/'">Home</button> -->
-                </div>
-                <!-- <img src="img/pfp/1.png" style="width: 100px; height: 100px" /> -->
-                <div class="d-flex">
-                    <h1>Points:</h1>
-                    <h1 class="text-center" id="pointCounter">0</h1>
+    <div class="container py-3">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary rounded-3 p-3">
+            <div class="container-fluid align-items-center">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                    <div class="rounded-3 bg-primary text-white d-flex align-items-center justify-content-center"
+                        style="width:48px;height:48px;font-weight:700">G</div>
+                    <div>
+                        <div class="h5 mb-0">Gamelist</div>
+                        <small class="text-muted">gamified to-do & rewards</small>
+                    </div>
+                </a>
+                <div class="d-flex align-items-center gap-3">
+                    <div class="d-flex flex-column text-end me-2">
+                        <small class="text-muted">Points</small>
+                        <div id="pointCounter" class="points-pill">0</div>
+                    </div>
+                    <div class="btn-group" role="group" aria-label="auth">
+                        <button id="btn-demo-add" type="button" class="btn btn-outline-primary">Add demo task
+                            +10</button>
+                        <button type="button" class="btn btn-primary">Sign up</button>
+                        <button type="button" class="btn btn-outline-secondary">Log in</button>
+                    </div>
                 </div>
             </div>
         </nav>
-        <div id="body-wrapper"></div>
+
+        <section class="hero">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold">Turn your list into a game</h1>
+                    <p class="lead mb-4">Set goals, earn points when you complete tasks, and redeem rewards from your
+                        shop. Make progress addictive — and fun.</p>
+                    <div class="d-flex gap-2">
+                        <a href="#features" class="btn btn-light btn-lg">How it works</a>
+                        <a href="#shop" class="btn btn-outline-light btn-lg">Browse rewards</a>
+                    </div>
+                    <ul class="list-unstyled d-flex gap-3 mt-4">
+                        <li class="d-flex align-items-center gap-2">
+                            <div class="feature-icon">🏆</div>
+                            <div>
+                                <strong>Gamify goals</strong>
+                                <div class="text-white-50 small">Attach point rewards to every task</div>
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-center gap-2">
+                            <div class="feature-icon">🛒</div>
+                            <div>
+                                <strong>Redeem items</strong>
+                                <div class="text-white-50 small">Spend points on a custom rewards shop</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-5 offset-lg-1">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <div>
+                                    <small class="text-muted">Daily streak</small>
+                                    <div class="h5 mb-0">3 days</div>
+                                </div>
+                                <div class="text-end">
+                                    <small class="text-muted">Level</small>
+                                    <div class="h5 mb-0">5</div>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <div class="progress" style="height:12px;border-radius:10px">
+                                    <div id="xpBar" class="progress-bar" role="progressbar" style="width: 62%"
+                                        aria-valuenow="62" aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <div class="small text-muted mt-2">62% to next level</div>
+                            </div>
+                            <div class="list-group mb-2">
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="fw-bold">Finish project outline</div>
+                                        <small class="text-muted">Reward 30 pts</small>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-success demo-complete"
+                                        data-points="30">Complete</button>
+                                </div>
+                                <div class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <div class="fw-bold">30 minutes workout</div>
+                                        <small class="text-muted">Reward 15 pts</small>
+                                    </div>
+                                    <button class="btn btn-sm btn-outline-success demo-complete"
+                                        data-points="15">Complete</button>
+                                </div>
+                            </div>
+                            <div class="d-grid">
+                                <a href="#signup" class="btn btn-primary">Create account — it's free</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="features" class="mt-5">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Set goals & rewards</h5>
+                            <p class="card-text text-muted">Assign points to tasks so every completed item moves you
+                                closer to a reward.</p>
+                            <div class="mt-3">
+                                <span class="badge bg-primary">Points system</span>
+                                <span class="badge bg-secondary">Custom rewards</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Progress & streaks</h5>
+                            <p class="card-text text-muted">Track streaks, levels and XP to keep motivation high.</p>
+                            <div class="mt-3">
+                                <span class="badge bg-success">Streaks</span>
+                                <span class="badge bg-info">Levels</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Shop & rewards</h5>
+                            <p class="card-text text-muted">Convert hard-earned points into real rewards from your shop.
+                            </p>
+                            <div class="mt-3">
+                                <span class="badge bg-warning text-dark">Redeem</span>
+                                <span class="badge bg-dark">Personalize</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="shop" class="mt-5">
+            <div class="d-flex justify-content-between align-items-end mb-3">
+                <h3>Featured rewards</h3>
+                <a href="#shop" class="text-decoration-none">View all</a>
+            </div>
+            <div class="row g-3">
+                <div class="col-sm-6 col-md-4">
+                    <div class="card h-100">
+                        <img src="https://picsum.photos/seed/book/600/400" class="card-img-top reward-img" alt="reward">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">New Book</h5>
+                            <p class="card-text text-muted mb-2">Reward: <strong>120 pts</strong></p>
+                            <div class="mt-auto d-flex gap-2">
+                                <button class="btn btn-outline-primary btn-sm btn-buy" data-cost="120">Buy</button>
+                                <button class="btn btn-outline-secondary btn-sm">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card h-100">
+                        <img src="https://picsum.photos/seed/coffee/600/400" class="card-img-top reward-img"
+                            alt="reward">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Coffee Treat</h5>
+                            <p class="card-text text-muted mb-2">Reward: <strong>40 pts</strong></p>
+                            <div class="mt-auto d-flex gap-2">
+                                <button class="btn btn-outline-primary btn-sm btn-buy" data-cost="40">Buy</button>
+                                <button class="btn btn-outline-secondary btn-sm">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card h-100">
+                        <img src="https://picsum.photos/seed/game/600/400" class="card-img-top reward-img" alt="reward">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">Game Night</h5>
+                            <p class="card-text text-muted mb-2">Reward: <strong>200 pts</strong></p>
+                            <div class="mt-auto d-flex gap-2">
+                                <button class="btn btn-outline-primary btn-sm btn-buy" data-cost="200">Buy</button>
+                                <button class="btn btn-outline-secondary btn-sm">Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="mt-5 mb-4 text-center text-muted">
+            <small>© <span id="year"></span> Gamelist — built to help you win at progress</small>
+        </footer>
     </div>
+
     <div class="toast-container position-fixed bottom-0 end-0 p-3" id="toast-container"></div>
+
+    <script type="module" src="src/script/todo.js"></script>
     <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        const pointCounterEl = document.getElementById('pointCounter');
+        const yearEl = document.getElementById('year');
+        yearEl.textContent = new Date().getFullYear();
+        let points = 0;
+        function renderPoints() {
+            pointCounterEl.textContent = points;
+        }
+        function showToast(title, body) {
+            const toastContainer = document.getElementById('toast-container');
+            const toastEl = document.createElement('div');
+            toastEl.className = 'toast align-items-center text-bg-white border shadow-sm';
+            toastEl.setAttribute('role', 'alert');
+            toastEl.setAttribute('aria-live', 'assertive');
+            toastEl.setAttribute('aria-atomic', 'true');
+            toastEl.innerHTML = '<div class="d-flex"><div class="toast-body"><strong>' + title + '</strong><div class="small text-muted">' + body + '</div></div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button></div>';
+            toastContainer.appendChild(toastEl);
+            const toast = new bootstrap.Toast(toastEl, { delay: 3000 });
+            toast.show();
+            toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
+        }
+        document.getElementById('btn-demo-add').addEventListener('click', () => {
+            points += 10;
+            renderPoints();
+            showToast('Task completed', 'You earned 10 points');
+        });
+        document.querySelectorAll('.demo-complete').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const amt = Number(btn.getAttribute('data-points') || 0);
+                points += amt;
+                renderPoints();
+                showToast('Nice!', `+${amt} points`);
+            });
+        });
+        document.querySelectorAll('.btn-buy').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cost = Number(btn.getAttribute('data-cost') || 0);
+                if (points >= cost) {
+                    points -= cost;
+                    renderPoints();
+                    showToast('Purchased', 'Enjoy your reward!');
+                } else {
+                    showToast('Not enough points', 'Complete tasks to earn more points');
+                }
+            });
+        });
+        renderPoints();
+    </script>
 </body>
 
 </html>
