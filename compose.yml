@@ -7,8 +7,8 @@ services:
             - com.centurylinklabs.watchtower.enable=true
         ports:
             - "9000:80"
-        volumes:
-            - ./:/var/www/html
+        # volumes:
+            # - ./:/var/www/html
         depends_on:
             - gamelist-db
         environment:
