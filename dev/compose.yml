@@ -1,0 +1,34 @@
+services:
+    gamelist:
+        container_name: gamelist-app
+        build:
+            context: ../
+            dockerfile: Dockerfile
+        init: true
+        ports:
+            - "9000:80"
+        volumes:
+            - ../:/var/www/html
+        depends_on:
+            - gamelist-db
+        environment:
+            DATABASE_URL: "mysql://root:root@db:3306/gamelist"
+        restart: always
+
+    gamelist-db:
+        container_name: gamelist-db
+        image: mariadb
+        volumes:
+            - gamelist-data:/var/lib/mysql
+            - ../db-structure:/docker-entrypoint-initdb.d/
+        # restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: gamelist
+            MYSQL_USER: gamelist
+            MYSQL_PASSWORD: root
+        # ports:
+        #     - "3306:3306"
+        restart: always
+volumes:
+    gamelist-data:
