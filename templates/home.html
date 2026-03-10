@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="google-site-verification" content="XRS-DlqvCSDD76UDmBelZK-oG16XL20KyEUnDFdgCo4" />
+    <link rel="stylesheet" href="vendor/twbs/bootstrap/dist/css/bootstrap.min.css" />
+    <title>Gamelist — Gamified to-do</title>
+</head>
+
+<body data-bs-theme="light">
+    <div class="container">
+        <nav class="navbar bg-body-tertiary">
+            <div class="container-fluid">
+                <div class="d-flex align-items-center gap-3">
+                    <h1 class="ms-3">Gamelist</h1>
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <a href="login" class="btn btn-outline-primary">Login</a>
+                    <a href="register" class="btn btn-primary">Register</a>
+                </div>
+            </div>
+        </nav>
+
+        <header class="row justify-content-center mt-5">
+            <div class="col-md-8 border p-4 text-center">
+                <h1 class="h3 mb-3">Make tasks rewarding</h1>
+                <p class="text-muted mb-4">Gamelist turns your to-do list into a simple game — attach point rewards to
+                    goals, earn points by completing tasks, and spend points in your personal rewards shop.</p>
+                <div class="d-flex justify-content-center gap-2 mb-3">
+                    <a href="/todo" class="btn btn-primary btn-lg">Get started</a>
+                    <a href="#how" class="btn btn-outline-primary btn-lg">How it works</a>
+                </div>
+                <div class="small text-muted">Open source — <a href="https://github.com/Wlczak/gamelist" target="_blank"
+                        rel="noopener">github.com/Wlczak/gamelist</a></div>
+            </div>
+        </header>
+
+        <main class="row justify-content-center mt-4">
+            <div id="how" class="col-md-8">
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <div class="border rounded p-3 text-center h-100">
+                            <div class="fw-bold mb-2">Create tasks</div>
+                            <div class="text-muted small">Add tasks and assign point values to each goal.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="border rounded p-3 text-center h-100">
+                            <div class="fw-bold mb-2">Earn points</div>
+                            <div class="text-muted small">Mark tasks done to collect points instantly.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="border rounded p-3 text-center h-100">
+                            <div class="fw-bold mb-2">Redeem rewards</div>
+                            <div class="text-muted small">Use points in your rewards shop — add custom items and prices.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-4">
+                    <div class="col-md-8">
+                        <div class="border rounded p-3">
+                            <div class="fw-bold mb-2">Who is this for?</div>
+                            <div class="text-muted small">Anyone who wants a little extra motivation — students,
+                                hobbyists, people tracking habits or side projects.</div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 d-flex align-items-center">
+                        <a href="register" class="btn btn-primary w-100">Create free account</a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="text-center text-muted mt-5 mb-3">
+            <small>© <span id="year"></span> Gamelist · <a href="https://github.com/Wlczak/gamelist" target="_blank"
+                    rel="noopener">Source on GitHub</a></small>
+        </footer>
+    </div>
+
+    <script src="vendor/twbs/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+    </script>
+</body>
+
+</html>

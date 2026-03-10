@@ -2,6 +2,7 @@
 
 use Gamelist\Api\TodoApi;
 use Gamelist\Api\TodoAuth;
+use Gamelist\Controllers\Home;
 use Gamelist\Controllers\Todo;
 use Gamelist\Middleware\AuthMiddleware;
 use Psr\Http\Message\RequestInterface;
@@ -24,7 +25,9 @@ $app->add(AuthMiddleware::class);
 
 $app->setBasePath(BASE_URL);
 
-$app->get('/', [Todo::class, 'view']);
+$app->get('/', [Home::class, 'view']);
+
+$app->get('/todo', [Todo::class, 'view']);
 
 $app->get('/shop', [Todo::class, 'view']);
 

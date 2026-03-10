@@ -24,6 +24,7 @@ class AuthMiddleware
         $response = $this->loginCheck($response);
         return $response;
     }
+
     function loginCheck($response)
     {
 
@@ -34,15 +35,15 @@ class AuthMiddleware
         if (preg_match('/\.(?:png|jpg|jpeg|gif|ico|css|js|svg|woff2|woff|eot|ttf|otf)$/', $_SERVER['REQUEST_URI'])) {
             return $response;
         }
-        
-        if ($_SERVER['REQUEST_URI'] == BASE_URL."/login" || $_SERVER['REQUEST_URI'] == BASE_URL."/register" || $_SERVER['REQUEST_URI'] == BASE_URL."/api" || $_SERVER['REQUEST_URI'] == BASE_URL."/auth") {
+
+        if ($_SERVER['REQUEST_URI'] == BASE_URL . "/login" || $_SERVER['REQUEST_URI'] == BASE_URL . "/register" || $_SERVER['REQUEST_URI'] == BASE_URL . "/api" || $_SERVER['REQUEST_URI'] == BASE_URL . "/auth" || $_SERVER['REQUEST_URI'] == BASE_URL . "/") {
             return $response;
         } else {
-            if($this->Database->verifyToken()){
+            if ($this->Database->verifyToken()) {
                 return $response;
             }
         }
-        
-        return $response->withHeader('Location', BASE_URL.'/login')->withStatus(302);
+
+        return $response->withHeader('Location', BASE_URL . '/')->withStatus(302);
     }
 }
