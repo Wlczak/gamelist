@@ -12,7 +12,7 @@ COPY ./ /build/
 
 RUN composer install --no-dev --no-scripts --optimize-autoloader
 
-FROM nginx:1.29-alpine-slim AS lylink-nginx
+FROM nginx:1.29-alpine-slim AS gamelist-nginx
 
 COPY --from=composer /build/ /var/www/html/
 

@@ -5,7 +5,7 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
-            target: lylink-nginx
+            target: gamelist-nginx
         ports:
             - "9000:80"
         volumes:
