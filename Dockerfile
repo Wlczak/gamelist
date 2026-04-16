@@ -1,33 +1,33 @@
-FROM php:8.4-apache
+FROM php:8.4-fpm-alpine AS composer
 
-# install Composer
-RUN curl -s https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+WORKDIR /build
 
-# install dependencies
+# install Composer binary
+COPY --from=composer:2.9 /usr/bin/composer /usr/bin/composer
+
+# install any extensions needed for composer install (e.g. zip)
+RUN apk add --no-cache libzip-dev && docker-php-ext-install zip
+
+COPY ./ /build/
+
+RUN composer install --no-dev --no-scripts --optimize-autoloader
+
+FROM nginx:1.29-alpine-slim AS lylink-nginx
+
+COPY --from=composer /build/ /var/www/html/
+
+COPY ./phpdocker/nginx/nginx.conf /etc/nginx/conf.d/default.conf
+
+FROM php:8.4-fpm-alpine AS gamelist
+
 WORKDIR /var/www/html
-#COPY composer.json ./
 
-RUN a2enmod rewrite
-RUN a2enmod actions
+# install native deps for extensions
+RUN apk add --no-cache libzip-dev
 
-# install dependencies
-RUN apt-get update && apt-get install -y \
-    libzip-dev
-# configure PHP
-#COPY php.ini /usr/local/etc/php/php.ini
+# install PHP extensions
 RUN docker-php-ext-install pdo_mysql mysqli zip
 
-# set open ports
-EXPOSE 9000
+COPY --from=composer /build /var/www/html
 
-# set environment variables
-#ENV COMPOSER_HOME=/app/vendor/composer
-#ENV COMPOSER_CACHE_DIR=/app/vendor/composer/cache
-
-COPY ./ /var/www/html
-
-# prod
-#CMD ["bash", "-c", "composer install --no-dev --no-scripts && apache2-foreground" ]
-
-# dev
-CMD ["bash", "-c", "composer install && apache2-foreground" ] 
+CMD ["php-fpm", "-R"]

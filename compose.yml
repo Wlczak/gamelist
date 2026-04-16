@@ -1,18 +1,33 @@
 services:
+    gamelist-nginx:
+        container_name: gamelist-nginx
+        image: nginx:1.29-alpine-slim
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: lylink-nginx
+        ports:
+            - "9000:80"
+        volumes:
+            - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+        depends_on:
+            - gamelist
+        restart: always
+
     gamelist:
         container_name: gamelist-app
         image: wlczak/gamelist:latest
+        build:
+            context: .
+            dockerfile: Dockerfile
         init: true
         labels:
             - com.centurylinklabs.watchtower.enable=true
-        ports:
-            - "9000:80"
-        # volumes:
-            # - ./:/var/www/html
+        # port no longer exposed publicly — nginx talks to fpm directly
         depends_on:
             - gamelist-db
         environment:
-            DATABASE_URL: "mysql://root:root@db:3306/gamelist"
+            DATABASE_URL: "mysql://root:root@gamelist-db:3306/gamelist"
         restart: always
 
     gamelist-db:
@@ -21,14 +36,12 @@ services:
         volumes:
             - gamelist-data:/var/lib/mysql
             - ./db-structure:/docker-entrypoint-initdb.d/
-        # restart: always
         environment:
             MYSQL_ROOT_PASSWORD: root
             MYSQL_DATABASE: gamelist
             MYSQL_USER: gamelist
             MYSQL_PASSWORD: root
-        # ports:
-        #     - "3306:3306"
         restart: always
+
 volumes:
     gamelist-data:
