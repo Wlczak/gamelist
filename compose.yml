@@ -22,8 +22,6 @@ services:
     labels:
       - com.centurylinklabs.watchtower.enable=true
     # port no longer exposed publicly — nginx talks to fpm directly
-    depends_on:
-      - gamelist-db
     environment:
       DATABASE_URL: "mysql://root:root@gamelist-db:3306/gamelist"
     restart: always
