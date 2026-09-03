@@ -1,11 +1,7 @@
 services:
   gamelist-nginx:
     container_name: gamelist-nginx
-    image: nginx:1.29-alpine-slim
-    build:
-      context: .
-      dockerfile: Dockerfile
-      target: gamelist-nginx
+    image: wlczak/gamelist-nginx:latest
     ports:
       - "9000:80"
     volumes:
